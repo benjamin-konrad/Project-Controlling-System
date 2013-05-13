@@ -4,8 +4,10 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class Filter {
 
+	@SuppressWarnings("unused")
 	@XmlElement
 	private FilterGruppe filterGruppe;
+	@SuppressWarnings("unused")
 	@XmlElement
 	private Kennzahl kennzahl;
 	

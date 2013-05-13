@@ -4,12 +4,15 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class TimeFilter extends Filter{
 	
+	@SuppressWarnings("unused")
 	@XmlElement
 	private String filterType;
 	
+	@SuppressWarnings("unused")
 	@XmlElement 
 	private int year;
 	
+	@SuppressWarnings("unused")
 	@XmlElement
 	private int month;
 	

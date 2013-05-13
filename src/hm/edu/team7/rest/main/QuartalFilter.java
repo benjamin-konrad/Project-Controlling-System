@@ -1,7 +1,6 @@
 package hm.edu.team7.rest.main;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 public class QuartalFilter extends Filter {
 

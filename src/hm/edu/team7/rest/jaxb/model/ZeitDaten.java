@@ -5,9 +5,6 @@ import hm.edu.team7.rest.main.FilterGruppe;
 import hm.edu.team7.rest.main.Kennzahl;
 import hm.edu.team7.rest.main.QuartalFilter;
 import hm.edu.team7.rest.main.TimeFilter;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
