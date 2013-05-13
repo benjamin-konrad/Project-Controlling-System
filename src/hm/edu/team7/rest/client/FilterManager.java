@@ -24,7 +24,7 @@ public class FilterManager {
   // Liefert zeitfilter.
   @Path("/zeitfilter/y{jahr}/m{monat}/{kennzahl}")
   @GET
-  @Produces({MediaType.TEXT_XML})
+  @Produces("application/json")
   public ZeitDaten getHTML(@PathParam("jahr") int year, @PathParam("monat") int month, @PathParam("kennzahl") Kennzahl kz){
 	  ZeitDaten zd = new ZeitDaten();
 	  zd.changeOrAdd(666);

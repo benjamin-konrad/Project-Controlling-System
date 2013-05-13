@@ -14,6 +14,7 @@ public class Filter {
 		kennzahl = kenz;
 	}
 	
+	
 	public String getFilterType(){
 		return null;
 	}
