@@ -1,0 +1,69 @@
+html,body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+#mainContainer {
+	width: 100%;
+	height: 100%;
+}
+
+.RETROtxt {
+	font-size: 75px;
+	color: #fff;
+	text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px
+		#00DEFF, 0 0 70px #00DEFF, 0 0 80px #00DEFF, 0 0 100px #00DEFF, 0 0
+		150px #00DEFF;
+}
+
+.dialogLabel {
+	float: left;
+}
+
+.dialogTextfield {
+	float: right;
+	width: 50%;
+}
+
+.dialogSelectbox {
+	width : 200px;
+	float: right;
+}
+
+.dialogSize {
+	position: relative;
+}
+
+.menuRight {
+	float:right;
+}
+
+.treeCell {
+	vertical-align: top;
+}
+
+.dijitDialogPaneActionBar {
+	margin-top : 5px;
+	margin-bottom: 5px;
+	float : right !important;
+}
+
+.dijitDialog {
+	background: white !important;
+}
+
+.resizeHandleChart{
+	position: relative;	
+	right: -8px;
+	bottom: 6px;
+}
+
+.dijitDownArrowButton {
+	width: 10%;
+}
+
+.dijitSelect {
+	width: 50%;
+}
