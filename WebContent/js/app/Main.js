@@ -51,7 +51,7 @@ function main() {
 
 		restTree.fetchData();
 
-		on(registry.byId("tb_menubar_NewChart", "click"), function() {
+		on(registry.byId("tb_menubar_NewChart"), "click", function() {
 			handler.beforeOnClickChartFirstStepCreate();
 		});
 	});

@@ -84,6 +84,7 @@ html,body {
 	display: inline;
 	margin-left: 20px;
 }
+
 .logo {
 	margin-top: 1%;
 	display: inline;
@@ -124,28 +125,13 @@ html,body {
 	margin-top: 7% !important;
 }
 
-span#tb_menubar_NewChart_label.dijitReset.dijitInline.dijitButtonText {
+span#tb_menubar_NewChart_label.dijitReset.dijitInline.dijitButtonText,span#tb_menubar_settings_label.dijitReset.dijitInline.dijitButtonText,span#tb_menubar_logout_label.dijitReset.dijitInline.dijitButtonText
+	{
 	font-size: 125% !important;
 	color: #fff;
 	text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px
 		#00DEFF, 0 0 70px #00DEFF, 0 0 80px #00DEFF, 0 0 100px #00DEFF, 0 0
 		150px #00DEFF;
-}
-
-span#tb_menubar_settings_label.dijitReset.dijitInline.dijitButtonText {
-	font-size: 125% !important;
-	color: #fff !important;
-	text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px
-		#00DEFF, 0 0 70px #00DEFF, 0 0 80px #00DEFF, 0 0 100px #00DEFF, 0 0
-		150px #00DEFF !important;
-}
-
-span#tb_menubar_logout_label.dijitReset.dijitInline.dijitButtonText {
-	font-size: 125% !important;
-	color: #fff !important;
-	text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px
-		#00DEFF, 0 0 70px #00DEFF, 0 0 80px #00DEFF, 0 0 100px #00DEFF, 0 0
-		150px #00DEFF !important;
 }
 
 .menu {
