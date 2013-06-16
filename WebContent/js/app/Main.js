@@ -1,18 +1,18 @@
 function main() {
-	require([ "dijit/Tree", "dojo/store/Memory", "dijit/tree/ObjectStoreModel", "dijit/registry", "dojo/store/Observable", "dojo/dnd/Source",
-			"app/trees/DndTree", "app/trees/RestTree", "app/handlers/ChartCreationHandler", "dojo/on" ], function(Tree, Memory, ObjectStoreModel, registry,
+	require([ "dojo/store/Memory", "dijit/registry", "dojo/store/Observable",
+			"app/trees/DndTree", "app/trees/RestTree", "app/handlers/ChartCreationHandler", "dojo/on" ], function(Memory, registry,
 			Observable, DndTree, RestTree, ChartCreationHandler, on) {
 		window.id = 0;
 		window.chartMinWidth = null;
 		window.chartMinHeight = null;
 		window.chartTheme = "Julie";
-		var portletIdToPortlet = {};
+		var portletIdToPortlets = {};
 		registry.byId("select_chartTheme").set("value", window.chartTheme);
 		on(registry.byId("btn_dlg_Settings_ok"), "click", function() {
 			window.chartTheme = registry.byId("select_chartTheme").get("value");
-			for ( var key in portletIdToPortlet) {
-				if (portletIdToPortlet.hasOwnProperty(key)) {
-					portletIdToPortlet[key].refreshChart();
+			for ( var key in portletIdToPortlets) {
+				if (portletIdToPortlets.hasOwnProperty(key)) {
+					portletIdToPortlets[key].refreshChart();
 				}
 			}
 

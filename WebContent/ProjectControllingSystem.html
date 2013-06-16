@@ -39,17 +39,22 @@
 </script>
 <title>Project Controlling System</title>
 </head>
-<body class="nihilo">
+<body class="nihilo background">
 	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'sidebar', gutters:false, liveSplitters: true, isLayoutContainer: true" id="mainContainer">
 		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:false, region:'top'" style="width: 100px;">
-			<div id="tb_menubar" data-dojo-type="dijit/Toolbar">
-				<div data-dojo-type="dijit/form/Button" id="tb_menubar_NewChart" data-dojo-props="iconClass:'dijitIconChart', showLabel:true, onClick:function(){dlg_createChart_FirstStep.show();}">Neue Statistik</div>
+			<div id="tb_menubar" class="menu" data-dojo-type="dijit/Toolbar">
+				<div class="menuLeft">
+					<div data-dojo-type="dijit/form/Button" class="menuButton" id="tb_menubar_NewChart" data-dojo-props="iconClass:'dijitIconChart', showLabel:true, onClick:function(){dlg_createChart_FirstStep.show();}">Neue Statistik</div>
+				</div>
 				<div class="menuRight">
-					<div data-dojo-type="dijit/form/Button" id="tb_menubar_settings" data-dojo-props="iconClass:'dijitIconOptions', showLabel:true, onClick:function(){dlg_Settings.show();}">Einstellungen</div>
-					<div data-dojo-type="dijit/form/Button" id="tb_menubar_logout" data-dojo-props="iconClass:'dijitIconKeyLogin', showLabel:true">Logout</div>
+					<div data-dojo-type="dijit/form/Button" class="menuButton" id="tb_menubar_settings" data-dojo-props="iconClass:'dijitIconOptions', showLabel:true, onClick:function(){dlg_Settings.show();}">Einstellungen</div>
+					<div data-dojo-type="dijit/form/Button" class="menuButton" id="tb_menubar_logout" data-dojo-props="iconClass:'dijitIconKeyLogin', showLabel:true">Logout</div>
 				</div>
 			</div>
-			<p class="RETROtxt">Project Controlling System</p>
+			<img src="img/logo.png" class="logo">
+			<div style="display: inline; margin-top: 25px;">
+				<p class="RETROtxt">Project Controlling System</p>
+			</div>
 		</div>
 		<div id="portletGrid" data-dojo-type="dojox/layout/GridContainer" data-dojo-props="region:'center', nbZones:3, allowAutoScroll:true, isAutoOrganized:true"></div>
 	</div>

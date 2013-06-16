@@ -1,5 +1,5 @@
 define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/ResizeHandle", "dijit/layout/ContentPane", "app/portlets/ChartWidget",
-		"dojo/_base/lang" ], function(declare, dojo, Portlet, ResizeHandle, ContentPane, ChartWidget,s lang) {
+		"dojo/_base/lang" ], function(declare, dojo, Portlet, ResizeHandle, ContentPane, ChartWidget, lang) {
 	return declare([ Portlet ], {
 
 		constructor : function() {
