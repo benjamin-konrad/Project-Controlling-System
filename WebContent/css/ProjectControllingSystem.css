@@ -67,3 +67,15 @@ html,body {
 .dijitSelect {
 	width: 50%;
 }
+
+.dijitIconKeyLogin {
+	background-image: url("WebContent/img/key_login.png");
+}
+
+.dijitIconOptions {
+	background-image: url("WebContent/img/options.png");
+}
+
+.dijitIconChart {
+	background-image: url("WebContent/img/pie-chart_graph.png");
+}

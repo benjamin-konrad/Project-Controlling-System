@@ -2,27 +2,10 @@ define([ "dojo/_base/declare", "dijit/Tree", "dojo/store/Memory", "dijit/tree/Ob
 		"dojo/store/Observable", "dojo/_base/lang" ], function(declare, Tree, Memory, ObjectStoreModel, dndSource, aspect, Observable, lang) {
 	return declare([], {
 
-		constructor : function(nodeId, externalStore) {
+		constructor : function(nodeId, store, externalStore) {
 			this.externalStore = externalStore;
 			var that = this;
-			var store = new Memory({
-				data : [ {
-					id : 'filter',
-					name : 'Filter'
-				} ],
-				getChildren : function(object) {
-					return this.query({
-						parent : object.id
-					});
-				}
-			});
-
-			this.observableStore = new Observable(store);
-			
-			aspect.around(this.observableStore, "put", function(originalPut) {
-				that.originalPut = originalPut;
-				return lang.hitch(that, that._put);
-			});
+			this.observableStore = store;
 
 			this.model = new ObjectStoreModel({
 				store : this.observableStore,
@@ -46,6 +29,33 @@ define([ "dojo/_base/declare", "dijit/Tree", "dojo/store/Memory", "dijit/tree/Ob
 			
 			this.tree.onDblClick = this._onDblClick;
 			this.tree.startup();
+		},
+		
+		setStore : function(store){
+			this.observableStore = store;
+			var that = this;
+			aspect.around(this.observableStore, "put", function(originalPut) {
+				that.originalPut = originalPut;
+				return lang.hitch(that, that._put);
+			});
+			
+			this.tree.dndController.selectNone(); 
+			this.tree.model.store = store;
+
+		   
+			this.tree._itemNodesMap = {};
+			this.tree.rootNode.state = "UNCHECKED";
+			this.tree.model.root.children = null;
+
+		   
+			this.tree.rootNode.destroyRecursive();
+
+		    
+			this.tree.model.constructor(this.tree.model)
+
+		  
+			this.tree.postMixInProperties();
+			this.tree._load();
 		},
 
 		_put : function(obj, options) {
