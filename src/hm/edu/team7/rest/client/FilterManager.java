@@ -10,6 +10,10 @@ import hm.edu.team7.rest.filter.ProjektFilter;
 import hm.edu.team7.rest.filter.QuartalFilter;
 import hm.edu.team7.rest.jaxb.model.Daten;
 import hm.edu.team7.rest.jaxb.model.Kennzahl;
+import hm.edu.team7.rest.jaxb.model.posMitarbeiterValues;
+import hm.edu.team7.rest.jaxb.model.posOrganisationValues;
+import hm.edu.team7.rest.jaxb.model.posTimeValues;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -34,7 +38,7 @@ public class FilterManager {
 			@PathParam("kennzahl") Kennzahl kz) {
 		Daten zd = new Daten();
 		zd.setFilter(new JahrFilter(kz, year));
-		zd.fetchFromDB();
+		zd.fetchForYear();
 		return zd;
 	}
 
@@ -46,7 +50,7 @@ public class FilterManager {
 			@PathParam("monat") int month, @PathParam("kennzahl") Kennzahl kz) {
 		Daten zd = new Daten();
 		zd.setFilter(new MonatsFilter(kz, year, month));
-		zd.fetchFromDB();
+		zd.fetchForMonth();
 		return zd;
 	}
 
@@ -58,7 +62,7 @@ public class FilterManager {
 			@PathParam("kennzahl") Kennzahl kz, @PathParam("jahr") int year) {
 		Daten zd = new Daten();
 		zd.setFilter(new QuartalFilter(kz, year, quartal));
-		zd.fetchFromDB();
+		zd.fetchForQuartal();
 		return zd;
 	}
 
@@ -71,7 +75,7 @@ public class FilterManager {
 			@PathParam("kennzahl") Kennzahl kz) {
 		Daten zd = new Daten();
 		zd.setFilter(new BereichFilter(kz, bereich));
-		zd.fetchFromDB();
+		zd.fetchForBereich();
 		return zd;
 	}
 
@@ -84,7 +88,7 @@ public class FilterManager {
 			@PathParam("kennzahl") Kennzahl kz) {
 		Daten zd = new Daten();
 		zd.setFilter(new ProjektFilter(kz, bereich, projekt));
-		zd.fetchFromDB();
+		zd.fetchForProjekt();
 		return zd;
 	}
 
@@ -97,7 +101,7 @@ public class FilterManager {
 			@PathParam("konto") String konto, @PathParam("kennzahl") Kennzahl kz) {
 		Daten zd = new Daten();
 		zd.setFilter(new KontoFilter(kz, bereich, projekt, konto));
-		zd.fetchFromDB();
+		zd.fetchForKonto();
 		return zd;
 	}
 
@@ -111,7 +115,7 @@ public class FilterManager {
 			@PathParam("kennzahl") Kennzahl kz) {
 		Daten zd = new Daten();
 		zd.setFilter(new EntwicklungsstufeFilter(kz, estufe));
-		zd.fetchFromDB();
+		zd.fetchForEntStf();
 		return zd;
 	}
 
@@ -119,13 +123,36 @@ public class FilterManager {
 	@Path("/mitarbeiterfilter/mitarbeiter/{mitarbeiter}/{kennzahl}")
 	@GET
 	@Produces("application/json")
-	public Daten getMitarbeiter(
-			@PathParam("mitarbeiter") String mitarbeiter,
+	public Daten getMitarbeiter(@PathParam("mitarbeiter") String mitarbeiter,
 			@PathParam("kennzahl") Kennzahl kz) {
 		Daten zd = new Daten();
 		zd.setFilter(new MitarbeiterFilter(kz, mitarbeiter));
-		zd.fetchFromDB();
+		zd.fetchForMitarbeiter();
 		return zd;
+	}
+
+	// Liefert possibles filter
+	@Path("/getTimeFilterList")
+	@GET
+	@Produces("application/json")
+	public posTimeValues getTimeFilter() {
+		return new posTimeValues();
+	}
+
+	// Liefert possibles filter
+	@Path("/getOrganisationFilterList")
+	@GET
+	@Produces("application/json")
+	public posOrganisationValues getOrganisationFilter() {
+		return new posOrganisationValues();
+	}
+
+	// Liefert possibles filter
+	@Path("/getMitarbeiterFilterList")
+	@GET
+	@Produces("application/json")
+	public posMitarbeiterValues getMitarbeiterFilter() {
+		return new posMitarbeiterValues();
 	}
 
 }

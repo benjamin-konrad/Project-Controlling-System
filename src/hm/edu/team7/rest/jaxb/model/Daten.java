@@ -1,6 +1,8 @@
 package hm.edu.team7.rest.jaxb.model;
 
 import hm.edu.team7.rest.filter.Filter;
+import hm.edu.team7.rest.filter.JahrFilter;
+import hm.edu.team7.rest.filter.QuartalFilter;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,7 +13,7 @@ public class Daten {
 	
 	
 	@XmlElement
-	private Filter filter;
+	public Filter filter;
 
 	
 	@XmlElement
@@ -33,7 +35,7 @@ public class Daten {
 	}
 	
 	public Daten(){
-		value = "blub";
+		value = null;
 	}
 	
 	
@@ -41,8 +43,37 @@ public class Daten {
 		this.filter = filter;
 		
 	}
-	public void fetchFromDB() {
-		value = "Dummy Value";
+
+	public void fetchForMitarbeiter() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void fetchForEntStf() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void fetchForKonto() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void fetchForProjekt() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void fetchForBereich() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void fetchForQuartal() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void fetchForMonth() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void fetchForYear() {
+		// TODO Auto-generated method stub
 		
 	}
 	

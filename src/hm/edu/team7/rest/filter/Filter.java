@@ -14,7 +14,7 @@ public class Filter {
 	private Kennzahl kennzahl;
 	@SuppressWarnings("unused")
 	@XmlElement
-	private FilterIdentifier filterId;
+	public FilterIdentifier filterId;
 	
 	public Filter(FilterGruppe filGrp, Kennzahl kenz){
 		filterGruppe = filGrp;
