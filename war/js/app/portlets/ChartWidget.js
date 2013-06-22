@@ -1,5 +1,5 @@
-define([ "dojo/_base/declare", "dojox/charting/Chart", "dojox/charting/axis2d/Default", "dojo/fx/easing", "dojo/_base/fx",
-		"dojox/charting/widget/SelectableLegend", "dojox/charting/themes/Julie" ], function(declare, Chart, Default, easing, fx, SelectableLegend, ChartTheme) {
+define([ "dojo/_base/declare", "dojox/charting/Chart", "dojox/charting/axis2d/Default", "dojo/fx/easing", "dojo/_base/fx", "dojox/charting/widget/SelectableLegend",
+		"dojox/charting/themes/Julie"], function(declare, Chart, Default, easing, fx, SelectableLegend, ChartTheme) {
 	return declare([], {
 
 		constructor : function(typeOfChart, idOfChart, idOfLegend, store) {
@@ -85,9 +85,22 @@ define([ "dojo/_base/declare", "dojox/charting/Chart", "dojox/charting/axis2d/De
 		getChart : function() {
 			return this.chart;
 		},
+		
+		getDataStore : function(){
+			return this.store;
+		},
 
 		updateTypeOfChart : function(typeOfChart) {
 			this.typeOfChart = typeOfChart;
+			this._refreshChart();
+		},
+		
+		updateDataStore : function(store) {
+			this.store = store;
+			this._refreshChart();
+		},
+		
+		_refreshChart : function(){
 			this.chart.destroy();
 			this.handlerStart.remove();
 			this.handlerEnd.remove();

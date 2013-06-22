@@ -1,8 +1,8 @@
 define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(declare, dojo, registry, on) {
 	return declare([], {
 
-		constructor : function(createHandler, restTree, dndTree) {
-			this.createHandler = createHandler;
+		constructor : function(dataFetcher,  restTree, dndTree) {
+			this.dataFetcher = dataFetcher;
 			this.dndTree = dndTree;
 			this.restTree = restTree;
 		},
@@ -46,6 +46,9 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 		onClickChartSecondStepEdit : function(portlet){
 			portlet.setName(this.chartName);
 			portlet.setTypeOfChart(this.typeOfChart);
+			this.chartDataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, this.widgetStore, this.RestTree.model.store, function(dataStore){				
+				portlet.refreshChart(dataStore);
+			}, portlet.getDataStore());
 			this.btn_firstStepCommitOnClick.remove();
 			this.btn_secondStepCommitOnClick.remove();
 		}

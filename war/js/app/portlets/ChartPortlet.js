@@ -1,45 +1,50 @@
-define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/ResizeHandle", "dijit/layout/ContentPane", "app/portlets/ChartWidget",
-		"dojo/_base/lang" ], function(declare, dojo, Portlet, ResizeHandle, ContentPane, ChartWidget, lang) {
+define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/ResizeHandle", "dijit/layout/ContentPane", "app/portlets/ChartWidget", "dojo/_base/lang",
+         "dojo/dom-construct" ], function(declare, dojo, Portlet, ResizeHandle, ContentPane, ChartWidget, lang, domConstruct) {
 	return declare([ Portlet ], {
 
 		constructor : function() {
 
 		},
 
-		init : function(typeOfFilter, typeOfKennzahl, typeOfChart, editHandler, widgetStore) {
+		doPostCreate : function() {
+			this.idOfPane = "portletContentPane" + window.id++; // +
+			this.idOfStandby = this.idOfPane + "Standby";
+			this.idOfChart = this.idOfPane + window.id;
+			this.idOfLegend = this.idOfChart + "Legend";
+			
+			var contentPane = new ContentPane({
+				id : this.idOfPane,
+				content : '<div id="' + this.idOfStandby +'" style="text-align:center"><img src="img/ajax-loader.gif" width="64" height="64" alt="" /><br/><br/>Wird geladen</div>' + "<div id='" + this.idOfChart + "'></div>",
+				doLayout : true
+			});
+			this.addChild(contentPane);
+			contentPane.startup();
+			
+			contentPane = new ContentPane({
+				content : "<div id='" + this.idOfLegend + "'></div>",
+				doLayout : true
+			});
+			this.addChild(contentPane);
+			contentPane.startup();
+		},
+
+		init : function(typeOfFilter, typeOfKennzahl, typeOfChart, editHandler, dataStore) {
+			this._createIcon("dojoxPortletSettingsIcon", "dojoxPortletSettingsIconHover", lang.hitch(this, this._onClickEdit));
 			this.editHandler = editHandler;
 			this.typeOfFilter = typeOfFilter;
 			this.typeOfKennzahl = typeOfKennzahl;
 			this.typeOfChart = typeOfChart;
 			this.widgetStore = widgetStore;
-			this._createIcon("dojoxPortletSettingsIcon", "dojoxPortletSettingsIconHover", lang.hitch(this, this._onClickEdit));
-
-			var idOfPane = "portletContentPane" + window.id++; // +
-			var idOfChart = idOfPane + window.id;
-			var idOfLegend = idOfChart + "Legend";
-
-			var contentPane = new ContentPane({
-				id : idOfPane,
-				content : "<div id='" + idOfChart + "'></div>",
-				doLayout : true
-			});
-			this.addChild(contentPane);
-			contentPane.startup();
-
-			contentPane = new ContentPane({
-				content : "<div id='" + idOfLegend + "'></div>",
-				doLayout : true
-			});
-			this.addChild(contentPane);
-			contentPane.startup();
-
-			this.chart = new ChartWidget(typeOfChart, idOfChart, idOfLegend, widgetStore);
-
-			var startTopic = idOfChart + "Start";
-			var endTopic = idOfChart + "End";
+			domConstruct.destroy(this.idOfStandby);
+			
+			
+			this.chart = new ChartWidget(typeOfChart, this.idOfChart, this.idOfLegend, widgetStore);
+					
+			var startTopic = this.idOfChart + "Start";
+			var endTopic = this.idOfChart + "End";
 
 			var handle = new dojox.layout.ResizeHandle({
-				targetId : idOfPane,
+				targetId : this.idOfPane,
 				endTopic : endTopic,
 				startTopic : startTopic,
 				minHeight : window.chartMinHeight,
@@ -60,6 +65,14 @@ define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/Res
 
 		getStore : function() {
 			return this.widgetStore;
+		},
+		
+		getDataStore : function(){
+			return this.chart.getDataStore();
+		},
+		
+		refreshChart : function(store){
+			this.chart.updateDataStore(store);
 		},
 
 		_onClickEdit : function() {

@@ -1,12 +1,13 @@
-define([ "dojo/_base/declare", "dojo", "dijit/registry", "app/portlets/ChartPortlet", "app/handlers/ChartEditHandler", "dojo/store/Memory",
-		"dojo/store/Observable", "dojo/on" ], function(declare, dojo, registry, ChartPortlet, ChartEditHandler, Memory, Observable, on) {
+define([ "dojo/_base/declare", "dojo", "dijit/registry", "app/portlets/ChartPortlet", "app/handlers/click/ChartEditHandler", "dojo/store/Memory", "dojo/store/Observable",
+		"dojo/on", "app/handlers/network/ChartDataFetcher" ], function(declare, dojo, registry, ChartPortlet, ChartEditHandler, Memory, Observable, on, ChartDataFetcher) {
 	return declare([], {
 
 		constructor : function(portletIdToPortlet, RestTree, dndTree) {
 			this.restTree = RestTree;
 			this.dndTree = dndTree;
 			this.portletIdToPortlet = portletIdToPortlet;
-			this.editHandler = new ChartEditHandler(this, RestTree, dndTree);
+			this.chartDataFetcher = new ChartDataFetcher("http://pro-con-sys.appspot.com/api/filter");
+			this.editHandler = new ChartEditHandler(this.chartDataFetcher, RestTree, dndTree);
 		},
 
 		beforeOnClickChartFirstStepCreate : function() {
@@ -47,11 +48,16 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "app/portlets/ChartPort
 
 		onClickChartSecondStepCreate : function() {
 			var port = new ChartPortlet({
-				title : this.chartName
+				title : this.chartName,
+				isLoaded : false
 			});
+			port.doPostCreate();
 			registry.byId("portletGrid").addChild(port);
-			var portletId = port.init(this.typeOfFilter, this.typeOfKennzahl, this.typeOfChart, this.editHandler, this.widgetStore);
-			this.portletIdToPortlet[portletId] = port;
+			var _this = this;
+			this.chartDataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, this.widgetStore, this.restTree.model.store, function(dataStore){				
+				var portletId = port.init(_this.typeOfFilter, _this.typeOfKennzahl, _this.typeOfChart, _this.editHandler, dataStore);
+				_this.portletIdToPortlet[portletId] = port;
+			});
 			this.btn_firstStepCommitOnClick.remove();
 			this.btn_secondStepCommitOnClick.remove();
 		}

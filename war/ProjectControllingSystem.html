@@ -30,9 +30,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js" type="text/javascript"></script>
 <script src="js/app/Main.js" type="text/javascript"></script>
 <script type="text/javascript">
-	require([ "dojo/parser", "dojo/domReady!", "dijit/layout/BorderContainer", "dijit/Toolbar", "dijit/form/Button", "dojox/layout/GridContainer",
-			"dijit/Dialog", "dijit/form/Button", "dijit/form/TextBox", "dijit/form/Select", "dojox/layout/GridContainerLite", "dijit/Tree",
-			"dojox/layout/ResizeHandle", "dojo/dnd/Source" ], function(parser) {
+	require([ "dojo/parser", "dojo/domReady!", "dijit/layout/BorderContainer", "dijit/Toolbar", "dijit/form/Button", "dojox/layout/GridContainer", "dijit/Dialog",
+			"dijit/form/Button", "dijit/form/TextBox", "dijit/form/Select", "dojox/layout/GridContainerLite" ], function(parser) {
 		parser.parse();
 		main();
 	});
@@ -40,8 +39,39 @@
 <title>Project Controlling System</title>
 </head>
 <body class="nihilo background">
-	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'sidebar', gutters:false, liveSplitters: true, isLayoutContainer: true" id="mainContainer">
-		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:false, region:'top'" style="width: 100px;">
+	<div id="splashScreen" class="splashScreen">
+		<div class="innerContainer">
+			<div>
+				<img src="img/logo.png" class="splashScreenlogo">
+				<div style="display: inline; margin-top: 25px;">
+					<p class="RETROtxt">Project Controlling System</p>
+				</div>
+			</div>
+			<div class="loadingOverlay">
+				<div class="loadingText">Loading...</div>
+				<div class="windows8">
+					<div class="wBall" id="wBall_1">
+						<div class="wInnerBall"></div>
+					</div>
+					<div class="wBall" id="wBall_2">
+						<div class="wInnerBall"></div>
+					</div>
+					<div class="wBall" id="wBall_3">
+						<div class="wInnerBall"></div>
+					</div>
+					<div class="wBall" id="wBall_4">
+						<div class="wInnerBall"></div>
+					</div>
+					<div class="wBall" id="wBall_5">
+						<div class="wInnerBall"></div>
+					</div>
+				</div>
+				<!-- - See more at: http://cssload.net/#sthash.QtZDvIK1.dpuf -->
+			</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/layout/BorderContainer" class="mainContainer" data-dojo-props="design:'sidebar', gutters:false, liveSplitters: true, isLayoutContainer: true" id="mainContainer">
+		<div data-dojo-type="dijit/layout/ContentPane" class="topPane" data-dojo-props="splitter:false, region:'top'" style="width: 100px;">
 			<div id="tb_menubar" class="menu" data-dojo-type="dijit/Toolbar">
 				<div class="menuLeft">
 					<div data-dojo-type="dijit/form/Button" class="menuButton" id="tb_menubar_NewChart" data-dojo-props="iconClass:'dijitIconChart', showLabel:true, onClick:function(){dlg_createChart_FirstStep.show();}">Neue Statistik</div>

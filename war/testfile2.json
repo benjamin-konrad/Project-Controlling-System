@@ -3,61 +3,72 @@
         {
             "id": "2010",
             "name": "2010",
-            "type" : "zeitfilter",
+            "filter" : "ZEIT",
+            "type" : "year",
             "parent": "filter"
         },
         {
             "id": "2010Q1",
             "name": "Q1",
-           "type" : "zeitfilter",
+           "type" : "quarter",
+           "filter" : "ZEIT",
             "parent": "2010"
         },
         {
             "id": "2010Januar",
             "name": "Januar",
-           "type" : "zeitfilter",
-            "parent": "2010Q1"
+           "type" : "month",
+           "filter" : "ZEIT",
+            "parent": "2010"
         },
         {
             "id": "2010Q2",
             "name": "Q2",
-           "type" : "zeitfilter",
+           "type" : "quarter",
+           "filter" : "ZEIT",
             "parent": "2010"
         },
         {
             "id": "2010Maerz",
             "name": "März",
-           "type" : "zeitfilter",
-            "parent": "2010Q2"
+           "filter" : "ZEIT",
+           "type" : "month",
+            "parent": "2010"
         },
         {
             "id": "2009",
             "name": "2009",
-           "type" : "zeitfilter",
+           "filter" : "ZEIT",
+           "type" : "year",
             "parent": "filter"
         },
         {
             "id": "2009Q1",
             "name": "Q1",
-           "type" : "zeitfilter",
+           "filter" : "ZEIT",
+           "type" : "quarter",
             "parent": "2009"
         },
         {
             "id": "2009Januar",
             "name": "Januar",
-           "type" : "zeitfilter",
-            "parent": "2009Q1"
+           "filter" : "ZEIT",
+           "type" : "month",
+            "parent": "2009"
         },
         {
             "id": "2009Q2",
-           "type" : "zeitfilter",
+            "name" : "Q2",
+           "type" : "quarter",
+           "filter" : "ZEIT",
             "parent": "2009"
         },
         {
             "id": "2009Maerz",
+           "filter" : "ZEIT",
             "name": "März",
-           "type" : "zeitfilter",
-            "parent": "2009Q2"
+           "type" : "month",
+            "parent": "2009"
         }
     ]
 }

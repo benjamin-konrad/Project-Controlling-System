@@ -1,7 +1,19 @@
 function main() {
-	require([ "dojo/store/Memory", "dijit/registry", "dojo/store/Observable",
-			"app/trees/DndTree", "app/trees/RestTree", "app/handlers/ChartCreationHandler", "dojo/on" ], function(Memory, registry,
-			Observable, DndTree, RestTree, ChartCreationHandler, on) {
+	require([ "dojo/store/Memory", "dijit/registry", "dojo/store/Observable", "app/trees/DndTree", "app/trees/RestTree", "app/handlers/click/ChartCreationHandler", "dojo/on",
+			"dojo" ], function(Memory, registry, Observable, DndTree, RestTree, ChartCreationHandler, on, dojo) {
+		setTimeout(function() {
+			dojo.fadeOut({
+				node : "splashScreen",
+				duration : 750,
+				onEnd : function() {
+					dojo.style("splashScreen", "display", "none");
+				}
+			}).play();
+			
+		}, 3000);
+		window.filterTypes = {
+			"ZEIT" : [ "year", "month", "quarter" ],
+		}
 		window.id = 0;
 		window.chartMinWidth = null;
 		window.chartMinHeight = null;
@@ -32,7 +44,7 @@ function main() {
 		});
 
 		var restObservableStore = new Observable(restStore);
-		var restTree = new RestTree("tree_filter_out", restObservableStore, "testfile.json");
+		var restTree = new RestTree("tree_filter_out", restObservableStore, "testfile2.json");
 		var dndStore = new Memory({
 			data : [ {
 				id : 'filter',
