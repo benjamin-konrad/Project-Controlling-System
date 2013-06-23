@@ -1,6 +1,6 @@
 function main() {
 	require([ "dojo/store/Memory", "dijit/registry", "dojo/store/Observable", "app/trees/DndTree", "app/trees/RestTree", "app/handlers/click/ChartCreationHandler", "dojo/on",
-			"dojo" ], function(Memory, registry, Observable, DndTree, RestTree, ChartCreationHandler, on, dojo) {
+			"dojo", "dojo/_base/array" ], function(Memory, registry, Observable, DndTree, RestTree, ChartCreationHandler, on, dojo, array) {
 		setTimeout(function() {
 			dojo.fadeOut({
 				node : "splashScreen",
@@ -37,9 +37,13 @@ function main() {
 				name : 'Filter'
 			} ],
 			getChildren : function(object) {
-				return this.query({
+				var result =  this.query({
 					parent : object.id
 				});
+				result = array.filter(result, function(item){
+					return window.filter === item.filter;
+				});
+				return result;
 			}
 		});
 

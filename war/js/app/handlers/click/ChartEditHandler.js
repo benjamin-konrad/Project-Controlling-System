@@ -39,6 +39,7 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 		onClickChartFirstStepEdit : function(portlet) {
 			this.chartName = registry.byId("txt_chartName").get("value");
 			this.typeOfChart = registry.byId("select_Chart").get("value");
+			this.restTree.showTree(this.typeOfFilter);
 			this.restTree.fetchData();
 			this.dndTree.setStore(portlet.getStore());
 		},

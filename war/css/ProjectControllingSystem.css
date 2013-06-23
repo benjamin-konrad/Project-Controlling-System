@@ -14,16 +14,16 @@ html,body {
 		linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%,
 		transparent 75%, #242424 75%, #242424) !important;
 	background-color: #131313 !important;
-	background-size: 20px 20px !important;
-}
-
-.gridContainerTable {
-	border-top: 1px solid #BFBFBF !important;
-	border: none;
+	background-size: 20px 20px !important;	
 }
 
 .gridContainerZone {
 	background-color: inherit;
+}
+
+.gridContainerTable {
+	border: none !important;
+	border-top: none !important;
 }
 
 .dijitButtonHover {
@@ -59,6 +59,7 @@ html,body {
 	background-color: #131313 !important;
 	background-size: 20px 20px !important;
 	z-index: 10000 !important;
+	border-bottom: 1px solid #BFBFBF !important;
 }
 
 .nihilo .dijitToolbar {
@@ -226,7 +227,7 @@ span#tb_menubar_NewChart_label.dijitReset.dijitInline.dijitButtonText,span#tb_me
 	height: 20%;
 	z-index: 2;
 	position: absolute;
-	margin-top: 3%;
+	margin-top: 2%;
 }
 
 .loadingOverlay {
@@ -234,7 +235,27 @@ span#tb_menubar_NewChart_label.dijitReset.dijitInline.dijitButtonText,span#tb_me
 	margin-top: 5%;
 }
 
-.mainContainer {
+.ajaxLoaderContainer {
+	z-index: 5;
+	display: none;
+	text-align: center;
+	position: absolute;
+	background-color: white;
+}
+
+.ajaxLoaderContainerImg {
+	width: 25%;
+}
+
+.treeTables {
+	position: relative;
+	z-index: 0;
+}
+
+.treeActionBar {
+	position: relative;
+	z-index: 6;
+	margin-top: 10px;
 }
 
 /* loading circles */

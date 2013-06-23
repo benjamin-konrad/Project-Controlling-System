@@ -69,6 +69,13 @@
             "name": "März",
            "type" : "month",
             "parent": "2009"
+        },
+        {
+            "id": "2009Maerz",
+           "filter" : "ORGANISATION",
+            "name": "dummy",
+           "type" : "month",
+            "parent": "filter"
         }
     ]
 }

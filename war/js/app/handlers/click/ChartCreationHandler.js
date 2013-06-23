@@ -27,13 +27,14 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "app/portlets/ChartPort
 			this.chartName = registry.byId("txt_chartName").get("value");
 			this.typeOfChart = registry.byId("select_Chart").get("value");
 
-			// TODO: ADD
+			this.restTree.showTree(this.typeOfFilter);
 			this.restTree.fetchData();
 
 			var dndStore = new Memory({
 				data : [ {
 					id : 'filter',
-					name : 'Filter'
+					name : 'Filter',
+					filter : this.typeOfFilter
 				} ],
 				getChildren : function(object) {
 					return this.query({

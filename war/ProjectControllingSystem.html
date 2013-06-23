@@ -48,7 +48,10 @@
 				</div>
 			</div>
 			<div class="loadingOverlay">
-				<div class="loadingText">Loading...</div>
+				<div class="loadingText">
+					<div>Seite wird</div>
+					<div>geladen...</div>
+				</div>
 				<div class="windows8">
 					<div class="wBall" id="wBall_1">
 						<div class="wInnerBall"></div>
@@ -88,7 +91,7 @@
 		</div>
 		<div id="portletGrid" data-dojo-type="dojox/layout/GridContainer" data-dojo-props="region:'center', nbZones:3, allowAutoScroll:true, isAutoOrganized:true"></div>
 	</div>
-	<div data-dojo-type="dijit/Dialog" class="dialogSize" id="dlg_createChart_FirstStep" data-dojo-id="dlg_createChart_FirstStep" title="Statistik erstellen">
+	<div data-dojo-type="dijit/Dialog" class="dialogSize" id="dlg_createChart_FirstStep" data-dojo-id="dlg_createChart_FirstStep" title="Statistik erstellen (1/2)">
 
 		<div class="dijitDialogPaneContentArea" id="pane_FirstStepGridLayout" data-dojo-type="dojox/layout/GridContainerLite" data-dojo-props="nbZones:1, allowAutoScroll:true">
 			<div data-dojo-type="dijit/layout/ContentPane">
@@ -124,32 +127,35 @@
 		</div>
 		<div class="dijitDialogPaneActionBar">
 			<button data-dojo-type="dijit/form/Button" id="btn_firstStepCommit" data-dojo-props=" onClick : function(){dlg_createChart_FirstStep.hide(); dlg_createChart_SecondStep.show();}">OK</button>
-			<button data-dojo-type="dijit/form/Button" type="button" onClick="dlg_createChart_FirstStep.hide()">Cancel</button>
+			<button data-dojo-type="dijit/form/Button" type="button" onClick="dlg_createChart_FirstStep.hide()">Abbrechen</button>
 		</div>
 
 	</div>
 
-	<div data-dojo-type="dijit/Dialog" id="dlg_createChart_SecondStep" data-dojo-id="dlg_createChart_SecondStep" data-dojo-props="isLayoutContainer: true, doLayout:true" title="Statistik erstellen"
-		execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+	<div data-dojo-type="dijit/Dialog" id="dlg_createChart_SecondStep" data-dojo-id="dlg_createChart_SecondStep" data-dojo-props="isLayoutContainer: true, doLayout:true" title="Statistik erstellen (2/2)">
 		<div class="dijitDialogPaneContentArea" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="doLayout:true" id="resizePane">
-			<table>
+			<div class="ajaxLoaderContainer" id="ajaxLoaderContainer">
+				<img class="ajaxLoaderContainerImg" src="img/ajax-loader.gif" />
+				<p>Filterinformationen werden geladen...</p>
+			</div>
+			<table class="treeTables">
 				<tr>
 					<th class="treeCell"><div id="tree_filter_out"></div></th>
 					<th class="treeCell"><div id="tree_filter_in"></div></th>
 				</tr>
 			</table>
 		</div>
-		<div class="dijitDialogPaneActionBar">
+		<div class="dijitDialogPaneActionBar treeActionBar">
 			<button data-dojo-type="dijit/form/Button" id="btn_secondStepCommit" onClick="dlg_createChart_SecondStep.hide();">OK</button>
-			<button data-dojo-type="dijit/form/Button" type="button" onClick="dlg_createChart_SecondStep.hide()">Cancel</button>
+			<button data-dojo-type="dijit/form/Button" type="button" onClick="dlg_createChart_SecondStep.hide()">Abbrechen</button>
 		</div>
 		<div data-dojo-type="dojox/layout/ResizeHandle" data-dojo-props="targetId:'resizePane'"></div>
 	</div>
 
-	<div data-dojo-type="dijit/Dialog" id="dlg_Settings" data-dojo-id="dlg_Settings" data-dojo-props="isLayoutContainer: true, doLayout:true" title="Statistik erstellen" execute="alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+	<div data-dojo-type="dijit/Dialog" id="dlg_Settings" data-dojo-id="dlg_Settings" data-dojo-props="isLayoutContainer: true, doLayout:true" title="Einstellungen">
 		<div class="dijitDialogPaneContentArea" data-dojo-type="dojox/layout/GridContainerLite" id="pane_setting_gridContainer" data-dojo-props="nbZones:1, allowAutoScroll:true">
 			<div data-dojo-type="dijit/layout/ContentPane">
-				<label for="select_ChartTheme" class="dialogLabel">Kennzahl: </label> <select name="chartTheme" class="dialogSelectbox" id="select_chartTheme" data-dojo-type="dijit/form/Select">
+				<label for="select_ChartTheme" class="dialogLabel">Design: </label> <select name="chartTheme" class="dialogSelectbox" id="select_chartTheme" data-dojo-type="dijit/form/Select">
 					<option value="Julie" selected="selected">Julie</option>
 					<option value="ThreeD">ThreeD</option>
 					<option value="Chris">Chris</option>
@@ -190,11 +196,12 @@
 					<option value="PlotKit.purple">PlotKit.purple</option>
 					<option value="PlotKit.red">PlotKit.red</option>
 				</select>
-			</div>
-			<div class="dijitDialogPaneActionBar">
-				<button data-dojo-type="dijit/form/Button" id="btn_dlg_Settings_ok" onClick="dlg_Settings.hide()">OK</button>
-				<button data-dojo-type="dijit/form/Button" type="button" onClick="dlg_Settings.hide()">Cancel</button>
+				<div class="dijitDialogPaneActionBar">
+					<button data-dojo-type="dijit/form/Button" id="btn_dlg_Settings_ok" onClick="dlg_Settings.hide()">Speichern</button>
+					<button data-dojo-type="dijit/form/Button" type="button" onClick="dlg_Settings.hide()">Abbrechen</button>
+				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>

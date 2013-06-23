@@ -14,7 +14,7 @@ define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/Res
 			
 			var contentPane = new ContentPane({
 				id : this.idOfPane,
-				content : '<div id="' + this.idOfStandby +'" style="text-align:center"><img src="img/ajax-loader.gif" width="64" height="64" alt="" /><br/><br/>Wird geladen</div>' + "<div id='" + this.idOfChart + "'></div>",
+				content : '<div id="' + this.idOfStandby +'" style="text-align:center"><img src="img/ajax-loader.gif" width="64" height="64" alt="" /><br/><br/>Statistikinformationen werden geladen...</div>' + "<div id='" + this.idOfChart + "'></div>",
 				doLayout : true
 			});
 			this.addChild(contentPane);
