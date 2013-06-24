@@ -59,7 +59,7 @@ public class FilterCollection {
 		name = bereich + "";
 		id = name;
 		return this;
-	}
+	}//name = bereich1 // id = bereich //parent = filter
 
 
 	public FilterCollection setProjektData(String projekt, String parent,
@@ -68,9 +68,9 @@ public class FilterCollection {
 		fident = fid;
 		fgruppe = FilterGruppe.ORGANISATION;
 		name = projekt + "";
-		id = name;
+		id = parent + name;
 		return this;
-	}
+	}//name = projekt1 // id = bereich1projekt1 // parent = bereich
 
 
 	public FilterCollection setKontenData(String konto, String parent,
@@ -81,7 +81,7 @@ public class FilterCollection {
 		name = konto + "";
 		id = name;
 		return this;
-	}
+	}//name = konto1 // id = konto1 // parent = bereich1projekt1
 	
 	public FilterCollection setEntwcklStufeData(String estufe, String parent,
 			FilterIdentifier fid) {

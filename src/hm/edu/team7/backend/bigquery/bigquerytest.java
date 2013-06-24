@@ -2,8 +2,10 @@ package hm.edu.team7.backend.bigquery;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.security.GeneralSecurityException;
@@ -353,7 +355,7 @@ private static GoogleClientSecrets loadClientSecrets(String clientSecretsLocatio
     try {
     	File file = new File(clientSecretsLocation);
     	System.out.println("ex" + file.exists());
-    	Reader reader = new FileReader(file);
+    	InputStream reader = new FileInputStream(file);
       clientSecrets = GoogleClientSecrets.load(new JacksonFactory(),reader);
     } catch (Exception e) {
       System.out.println("Could not load client_secrets.json");
