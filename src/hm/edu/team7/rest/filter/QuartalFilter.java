@@ -16,5 +16,9 @@ public class QuartalFilter extends JahrFilter {
 		this.quartal = quartal;
 		setIdentifier(FilterIdentifier.QUARTAL);
 	}
+
+	public int getQuartal() {
+		return quartal;
+	}
 	
 }

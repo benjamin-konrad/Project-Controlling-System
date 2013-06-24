@@ -23,4 +23,8 @@ public class JahrFilter extends Filter {
 		this.filterId = i;
 	}
 
+	public int getJahr() {
+		return jahr;
+	}
+
 }

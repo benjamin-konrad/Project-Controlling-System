@@ -16,4 +16,8 @@ public class ProjektFilter extends BereichFilter{
 		setIdentifier(FilterIdentifier.PROJEKT);
 	}
 
+	public String getProjekt() {
+		return projekt;
+	}
+
 }

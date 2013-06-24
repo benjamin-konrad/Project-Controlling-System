@@ -16,6 +16,11 @@ public class BereichFilter extends Filter{
 		this.bereich = bereich;
 		setIdentifier(FilterIdentifier.BEREICH);
 	}
+
+
+	public String getBereich() {
+		return bereich;
+	}
 	
 
 }

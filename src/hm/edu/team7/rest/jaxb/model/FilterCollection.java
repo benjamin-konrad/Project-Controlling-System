@@ -1,5 +1,6 @@
 package hm.edu.team7.rest.jaxb.model;
 
+import hm.edu.team7.backend.bigquery.Bigquerybase;
 import hm.edu.team7.rest.filter.FilterGruppe;
 import hm.edu.team7.rest.filter.FilterIdentifier;
 import hm.edu.team7.rest.filter.JahrFilter;
@@ -104,35 +105,67 @@ public class FilterCollection {
 
 
 	public static int[] getAllYears() {
-		return new int[] { 2013, 2012 };
+		Integer[] value = Bigquerybase.fetchallYears();
+		int[] result = new int[value.length];
+		int i = 0;
+		for(Integer val:value)
+		{
+			result[i] = val;
+			i++;
+		}
+		
+		return result;
 	}
 
 	public static int[] getAllMonth(int year) {
-		return new int[] { 12, 11 };
+		Integer[] value = Bigquerybase.fetchallMonth(year);
+		int[] result = new int[value.length];
+		int i = 0;
+		for(Integer val:value)
+		{
+			result[i] = val;
+			i++;
+		}
+		
+		return result;
 	}
 
 	public static int[] getAllQuartal(int quartal) {
-		return new int[] { 1, 2 };
+		Integer[] value = Bigquerybase.fetchallQuartal(quartal);
+		int[] result = new int[value.length];
+		int i = 0;
+		for(Integer val:value)
+		{
+			result[i] = val;
+			i++;
+		}
+		
+		return result;
 	}
 
 	public static String[] getDistinctBereiche() {
-		return new String[] { "bereich1", "bereich2" };
+		String[] value = Bigquerybase.fetchallBereiche();
+		return value;
 	}
 	
 	public static String[] getDistinctProjekte(String bereich) {
-		return new String[] { "projekt1", "projekt2"};
+		String[] value = Bigquerybase.fetchallProjekte(bereich);
+		return value;
 	}
 	
 	public static String[] getDistinctKonten(String bereich, String projekt) {
-		return new String[] {"KOnto1", "Konto2"};
+		String[] value = Bigquerybase.fetchallKonten(bereich,projekt);
+		return value;
 	}
 
 	public static String[] getDistinctEntwcklStufen() {
-		return new String[] {"1", "2"};
+		String[] value = Bigquerybase.fetchallStufen();
+		return value;
 	}
 
 	public static String[] getDistinctMitarbeiter(String estufe) {
-		return new String[] {"herbert", "maier"};
+		String[] value = Bigquerybase.fetchallMitarbeiter(estufe);
+		return value;
 	}
 
 

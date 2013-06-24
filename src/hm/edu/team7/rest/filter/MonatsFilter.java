@@ -16,6 +16,10 @@ public class MonatsFilter extends JahrFilter{
 		setIdentifier(FilterIdentifier.MONAT);
 
 	}
+
+	public int getMonat() {
+		return month;
+	}
 	
 
 }

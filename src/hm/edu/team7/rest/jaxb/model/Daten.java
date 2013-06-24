@@ -1,7 +1,14 @@
 package hm.edu.team7.rest.jaxb.model;
 
+import hm.edu.team7.backend.bigquery.Bigquerybase;
+import hm.edu.team7.rest.filter.BereichFilter;
+import hm.edu.team7.rest.filter.EntwicklungsstufeFilter;
 import hm.edu.team7.rest.filter.Filter;
 import hm.edu.team7.rest.filter.JahrFilter;
+import hm.edu.team7.rest.filter.KontoFilter;
+import hm.edu.team7.rest.filter.MitarbeiterFilter;
+import hm.edu.team7.rest.filter.MonatsFilter;
+import hm.edu.team7.rest.filter.ProjektFilter;
 import hm.edu.team7.rest.filter.QuartalFilter;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -45,35 +52,42 @@ public class Daten {
 	}
 
 	public void fetchForMitarbeiter() {
-		// TODO Auto-generated method stub
+		MitarbeiterFilter fil = (MitarbeiterFilter) filter;
+		value = Bigquerybase.fetchMitarbeiter(fil.getMitarbeiter());
 		
 	}
 	public void fetchForEntStf() {
-		// TODO Auto-generated method stub
+		EntwicklungsstufeFilter fil = (EntwicklungsstufeFilter) filter;
+		value = Bigquerybase.fetchStufe(fil.getStufe());
 		
 	}
 	public void fetchForKonto() {
-		// TODO Auto-generated method stub
-		
+		KontoFilter fil = (KontoFilter) filter;
+		value = Bigquerybase.fetchKonto(fil.getKonto());
 	}
 	public void fetchForProjekt() {
-		// TODO Auto-generated method stub
+		ProjektFilter fil = (ProjektFilter) filter;
+		value = Bigquerybase.fetchProjekt(fil.getProjekt());
 		
 	}
 	public void fetchForBereich() {
-		// TODO Auto-generated method stub
+		BereichFilter fil = (BereichFilter) filter;
+		value = Bigquerybase.fetchBereich(fil.getBereich());
 		
 	}
 	public void fetchForQuartal() {
-		// TODO Auto-generated method stub
+		QuartalFilter fil = (QuartalFilter) filter;
+		value = Bigquerybase.fetchQuartal(fil.getQuartal());
 		
 	}
 	public void fetchForMonth() {
-		// TODO Auto-generated method stub
+		MonatsFilter fil = (MonatsFilter) filter;
+		value = Bigquerybase.fetchMonat(fil.getMonat());
 		
 	}
 	public void fetchForYear() {
-		// TODO Auto-generated method stub
+		JahrFilter fil = (JahrFilter) filter;
+		value = Bigquerybase.fetchJahr(fil.getJahr());
 		
 	}
 	

@@ -16,4 +16,8 @@ public class KontoFilter extends ProjektFilter {
 		setIdentifier(FilterIdentifier.KONTO);
 	}
 
+	public String getKonto() {
+		return konto;
+	}
+
 }

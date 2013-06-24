@@ -18,4 +18,10 @@ public class EntwicklungsstufeFilter extends Filter {
 		setIdentifier(FilterIdentifier.ENTWICKLUNGSSTUFE);
 	}
 
+
+	public int getStufe() {
+		// TODO Auto-generated method stub
+		return entwicklungsstufe;
+	}
+
 }

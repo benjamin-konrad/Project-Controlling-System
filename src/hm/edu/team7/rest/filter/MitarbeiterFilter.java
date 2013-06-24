@@ -16,5 +16,9 @@ public class MitarbeiterFilter extends Filter {
 		setIdentifier(FilterIdentifier.MITARBEITER);
 		this.mitarbeiter = mitarbeiter;
 	}
+	public String getMitarbeiter()
+	{
+		return mitarbeiter;
+	}
 
 }
