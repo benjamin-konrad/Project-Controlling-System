@@ -219,7 +219,7 @@ span#tb_menubar_NewChart_label.dijitReset.dijitInline.dijitButtonText,span#tb_me
 }
 
 .loadingText {
-	margin-left: 39.5%;
+	margin-left: 41%;
 	font-family: Garamond, serif;
 	font-size: 25px;
 	color: red;
@@ -256,6 +256,16 @@ span#tb_menubar_NewChart_label.dijitReset.dijitInline.dijitButtonText,span#tb_me
 	position: relative;
 	z-index: 6;
 	margin-top: 10px;
+}
+
+.RETROtxtLoadingScreen {
+	font-size: 75px;
+	color: #fff;
+	text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px
+		#00DEFF, 0 0 70px #00DEFF, 0 0 80px #00DEFF, 0 0 100px #00DEFF, 0 0
+		150px #00DEFF;
+	display: inline;
+	margin-left: 20px;
 }
 
 /* loading circles */
