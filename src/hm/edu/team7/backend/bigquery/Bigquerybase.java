@@ -174,8 +174,11 @@ public class Bigquerybase {
 		List<Integer> result = null;
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-
-				result.add(Integer.parseInt((String) field.getV()));
+				Integer monat = Integer.parseInt(((String) field.getV()).substring(0, 1));
+				Integer jahr = Integer.parseInt(((String) field.getV()).substring(1));
+				if(!result.contains(jahr))
+					result.add(jahr);
+			
 			}
 		}
 		return (Integer[]) result.toArray();
@@ -193,8 +196,12 @@ public class Bigquerybase {
 		List<Integer> result = null;
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
+				Integer monat = Integer.parseInt(((String) field.getV()).substring(0, 1));
+				Integer jahr = Integer.parseInt(((String) field.getV()).substring(1));
 
-				result.add(Integer.parseInt((String) field.getV()));
+				if(!result.contains(monat) && jahr.equals(year))
+					result.add(monat);
+			
 			}
 		}
 		return (Integer[]) result.toArray();
@@ -203,7 +210,7 @@ public class Bigquerybase {
 	public static Integer[] fetchallQuartal(int quartal) {
 		GetQueryResultsResponse queryResult = null;
 		try {
-			queryResult = bigquerytest.queryBig("AllQuartal",
+			queryResult = bigquerytest.queryBig("AllMonths",
 					String.valueOf(quartal));
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
@@ -212,8 +219,19 @@ public class Bigquerybase {
 		List<Integer> result = null;
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-
-				result.add(Integer.parseInt((String) field.getV()));
+				Integer monat = Integer.parseInt(((String) field.getV()).substring(0, 1));
+				Integer jahr = Integer.parseInt(((String) field.getV()).substring(1));
+				int quart =0;
+				if(monat < 3 && jahr.equals(quartal))
+					quart = 1;
+				else if(monat < 6 && jahr.equals(quartal))
+					quart = 2;
+				else if(monat <9 && jahr.equals(quartal))
+					quart = 3;
+				else
+					quart = 4;
+				if(!result.contains(quart))
+					result.add(quart);
 			}
 		}
 		return (Integer[]) result.toArray();

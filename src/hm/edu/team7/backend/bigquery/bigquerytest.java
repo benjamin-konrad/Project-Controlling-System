@@ -2,15 +2,17 @@ package hm.edu.team7.backend.bigquery;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
@@ -18,6 +20,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeReque
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
+import com.google.api.client.googleapis.extensions.appengine.auth.oauth2.AppIdentityCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -25,6 +28,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.bigquery.Bigquery;
 import com.google.api.services.bigquery.Bigquery.Datasets;
 import com.google.api.services.bigquery.Bigquery.Jobs.Insert;
+import com.google.api.services.bigquery.BigqueryRequest;
 import com.google.api.services.bigquery.BigqueryScopes;
 import com.google.api.services.bigquery.model.DatasetList;
 import com.google.api.services.bigquery.model.GetQueryResultsResponse;
@@ -63,18 +67,36 @@ public class bigquerytest   extends HttpServlet  {
   /** Global instances of HTTP transport and JSON factory objects. */
   private static final HttpTransport TRANSPORT = new NetHttpTransport();
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
+  private static final String SCOPE = "https://www.googleapis.com/auth/bigquery";
+
 
   private static GoogleAuthorizationCodeFlow flow = null;
-  
-  private static final String SCOPE = "https://www.googleapis.com/auth/bigquery";
-  
-///////////////////////////////////////////////////////////////////////////////////////
+/*//////////////////////////////////////////////////////////////////////////////////////
 
 
-  //Bigquery bigquery = createAuthorizedClient();
+	  // ENTER YOUR PROJECT ID HERE
+	  private static final String PROJECT_NUMBER = "480761361715";
 
+	  private static final String BIGQUERY_SCOPE = "https://www.googleapis.com/auth/bigquery";
+
+	  AppIdentityCredential credential = new AppIdentityCredential(BIGQUERY_SCOPE);
+	  Bigquery bigquery = Bigquery.builder(TRANSPORT,JSON_FACTORY)
+	      .setHttpRequestInitializer(credential)
+	      .setJsonHttpRequestInitializer(new JsonHttpRequestInitializer() {
+	        public void initialize(JsonHttpRequest request) {
+	          BigqueryRequest bigqueryRequest = (BigqueryRequest) request;
+	          bigqueryRequest.setPrettyPrint(true);
+	        }
+	      }).build();
+
+	  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	    resp.setContentType("text/plain");
+	    resp.getWriter().println(bigquery.datasets()
+	      .list(PROJECT_NUMBER)
+	      .execute().toString());
+	  }
 	
-	  //////////////////////////////////////////////////////////////////////////////
+	 *//////////////////////////////////////////////////////////////////////////////
   /**
 * @param args
 * @throws IOException
@@ -102,6 +124,7 @@ public class bigquerytest   extends HttpServlet  {
   public static GetQueryResultsResponse queryBig(String args, String param) throws IOException, InterruptedException
   {
 	  // Create a new BigQuery client authorized via OAuth 2.0 protocol
+	    //Bigquery bigquery = createAuthorizedClient();
 	  Bigquery bigquery;
 	    GoogleCredential credential;
 		try {
@@ -116,46 +139,46 @@ public class bigquerytest   extends HttpServlet  {
 	        bigquery = new Bigquery.Builder(TRANSPORT, JSON_FACTORY, credential)
 	            .setApplicationName("BigQuery-Service-Accounts/0.1")
 	            .setHttpRequestInitializer(credential).build();
+	
 	    String querySql = "";
 	    if(args.equals("Mitarbeiter"))
-	    		querySql = "SELECT * FROM pro-con-sys:csv_data.data where Mitarbeiter="+param;
+	    		querySql = "SELECT * FROM 480761361715:csv_data.data where Mitarbeiter="+param;
 	    if(args.equals("Konto"))
-    		querySql = "SELECT * FROM pro-con-sys:csv_data.data where Konto="+param;
+    		querySql = "SELECT * FROM 480761361715:csv_data.data where Konto="+param;
 	    if(args.equals("Projekt"))
-    		querySql = "SELECT * FROM pro-con-sys:csv_data.data where Projekt="+param;
+    		querySql = "SELECT * FROM 480761361715:csv_data.data where Projekt="+param;
 	    if(args.equals("Bereich"))
-    		querySql = "SELECT * FROM pro-con-sys:csv_data.data where Bereich="+param;
+    		querySql = "SELECT * FROM 480761361715:csv_data.data where Bereich="+param;
 	    if(args.equals("Quartal"))
-    		querySql = "SELECT * FROM pro-con-sys:csv_data.data where Quartal="+param;
+    		querySql = "SELECT * FROM 480761361715:csv_data.data where Quartal="+param;
 	    if(args.equals("Monat"))
-    		querySql = "SELECT * FROM pro-con-sys:csv_data.data where Monat="+param;
+    		querySql = "SELECT * FROM 480761361715:csv_data.data where Monat="+param;
 	    if(args.equals("Jahr"))
-    		querySql = "SELECT * FROM pro-con-sys:csv_data.data where Jahr="+param;
+    		querySql = "SELECT * FROM 480761361715:csv_data.data where Jahr="+param;
 	    if(args.equals("Stufe"))
-    		querySql = "SELECT * FROM pro-con-sys:csv_data.data where Stufe="+param;
+    		querySql = "SELECT * FROM 480761361715:csv_data.data where Stufe="+param;
 	    if(args.equals("AllYears"))
-    		querySql = "SELECT Jahr FROM pro-con-sys:csv_data.data group by Jahr";
+    		querySql = "SELECT Jahr FROM 480761361715:csv_data.data group by Jahr";
 	    if(args.equals("AllMonths"))
-    		querySql = "SELECT Monat FROM pro-con-sys:csv_data.data group by Monat";
+    		querySql = "SELECT Monat FROM 480761361715:csv_data.data group by Monat";
 	    if(args.equals("AllMonths"))
-    		querySql = "SELECT Monat FROM pro-con-sys:csv_data.data where Jahr="+param + " group by Monat";
-	    if(args.equals("AllQuartal"))
-    		querySql = "SELECT Quartal FROM pro-con-sys:csv_data.data where Jahr="+param + " group by Quartal";
+    		querySql = "SELECT Monat FROM 480761361715:csv_data.data where Jahr="+param + " group by monat";
 	    if(args.equals("Bereiche"))
-    		querySql = "SELECT Bereiche FROM pro-con-sys:csv_data.data group by Bereiche";
+    		querySql = "SELECT bereich FROM 480761361715:csv_data.data group by bereich";
 	    if(args.equals("Projekte"))
-    		querySql = "SELECT Projekte FROM pro-con-sys:csv_data.data where Bereich="+param + " group by Projekte";
+    		querySql = "SELECT projekte FROM 480761361715:csv_data.data where bereich="+param + " group by projekte";
 	    if(args.equals("Konten"))
-    		querySql = "SELECT Konten FROM pro-con-sys:csv_data.data where Bereich="+param.split(",")[0]+
-    		" and Projekt="+param.split(",")[1] + " group by Konten";
+    		querySql = "SELECT konto FROM 480761361715:csv_data.data where bereich="+param.split(",")[0]+
+    		" and projekt="+param.split(",")[1] + " group by konto";
 	    if(args.equals("alleStufen"))
-    		querySql = "SELECT Stufen FROM pro-con-sys:csv_data.data group by Stufen";
+    		querySql = "SELECT entwicklungsstufe FROM 480761361715:csv_data.data group by entwicklungsstufe";
 	    if(args.equals("alleMitarbeiter"))
-    		querySql = "SELECT Mitarbeiter FROM pro-con-sys:csv_data.data where Stufe="+param +" group by Mitarbeiter";
+    		querySql = "SELECT mitarbeiter FROM 480761361715:csv_data.data where entwicklungsstufe="+param +" group by mitarbeiter";
 	    JobReference jobId = startQuery(bigquery, PROJECT_ID, querySql);
 
 	    // Poll for Query Results, return result output
 	    Job completedJob = checkQueryResults(bigquery, PROJECT_ID, jobId);
+	    
 	    return returnresult(bigquery, PROJECT_ID, completedJob);
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block
@@ -330,7 +353,7 @@ private static GoogleClientSecrets loadClientSecrets(String clientSecretsLocatio
     try {
     	File file = new File(clientSecretsLocation);
     	System.out.println("ex" + file.exists());
-    	InputStream reader = new FileInputStream(file);
+    	Reader reader = new FileReader(file);
       clientSecrets = GoogleClientSecrets.load(new JacksonFactory(),reader);
     } catch (Exception e) {
       System.out.println("Could not load client_secrets.json");
