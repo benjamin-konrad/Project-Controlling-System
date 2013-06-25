@@ -2,17 +2,15 @@ package hm.edu.team7.backend.bigquery;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
@@ -20,7 +18,6 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeReque
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
-import com.google.api.client.googleapis.extensions.appengine.auth.oauth2.AppIdentityCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -28,7 +25,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.bigquery.Bigquery;
 import com.google.api.services.bigquery.Bigquery.Datasets;
 import com.google.api.services.bigquery.Bigquery.Jobs.Insert;
-import com.google.api.services.bigquery.BigqueryRequest;
 import com.google.api.services.bigquery.BigqueryScopes;
 import com.google.api.services.bigquery.model.DatasetList;
 import com.google.api.services.bigquery.model.GetQueryResultsResponse;
@@ -142,21 +138,21 @@ public class bigquerytest   extends HttpServlet  {
 	
 	    String querySql = "";
 	    if(args.equals("Mitarbeiter"))
-	    		querySql = "SELECT * FROM 480761361715:csv_data.data where Mitarbeiter="+param;
+	    		querySql = param;
 	    if(args.equals("Konto"))
-    		querySql = "SELECT * FROM 480761361715:csv_data.data where Konto="+param;
+    		querySql = param;
 	    if(args.equals("Projekt"))
-    		querySql = "SELECT * FROM 480761361715:csv_data.data where Projekt="+param;
+    		querySql = param;
 	    if(args.equals("Bereich"))
-    		querySql = "SELECT * FROM 480761361715:csv_data.data where Bereich="+param;
+    		querySql = param;
 	    if(args.equals("Quartal"))
-    		querySql = "SELECT * FROM 480761361715:csv_data.data where Quartal="+param;
+    		querySql = param;
 	    if(args.equals("Monat"))
-    		querySql = "SELECT * FROM 480761361715:csv_data.data where Monat="+param;
+    		querySql = param;
 	    if(args.equals("Jahr"))
-    		querySql = "SELECT * FROM 480761361715:csv_data.data where Jahr="+param;
+    		querySql = param;
 	    if(args.equals("Stufe"))
-    		querySql = "SELECT * FROM 480761361715:csv_data.data where Stufe="+param;
+    		querySql = param;
 	    if(args.equals("AllYears"))
     		querySql = "SELECT Jahr FROM 480761361715:csv_data.data group by Jahr";
 	    if(args.equals("AllMonths"))
@@ -353,7 +349,7 @@ private static GoogleClientSecrets loadClientSecrets(String clientSecretsLocatio
     try {
     	File file = new File(clientSecretsLocation);
     	System.out.println("ex" + file.exists());
-    	Reader reader = new FileReader(file);
+    	InputStream reader = new FileInputStream(file);
       clientSecrets = GoogleClientSecrets.load(new JacksonFactory(),reader);
     } catch (Exception e) {
       System.out.println("Could not load client_secrets.json");

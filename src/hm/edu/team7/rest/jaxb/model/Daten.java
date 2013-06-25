@@ -53,41 +53,41 @@ public class Daten {
 
 	public void fetchForMitarbeiter() {
 		MitarbeiterFilter fil = (MitarbeiterFilter) filter;
-		value = Bigquerybase.fetchMitarbeiter(fil.getMitarbeiter());
+		value = Bigquerybase.fetchMitarbeiter(fil.getKennzahl(), fil.getMitarbeiter());
 		
 	}
 	public void fetchForEntStf() {
 		EntwicklungsstufeFilter fil = (EntwicklungsstufeFilter) filter;
-		value = Bigquerybase.fetchStufe(fil.getStufe());
+		value = Bigquerybase.fetchStufe(fil.getKennzahl(), fil.getStufe());
 		
 	}
 	public void fetchForKonto() {
 		KontoFilter fil = (KontoFilter) filter;
-		value = Bigquerybase.fetchKonto(fil.getKonto());
+		value = Bigquerybase.fetchKonto(fil.getKennzahl(), fil.getBereich(), fil.getProjekt());
 	}
 	public void fetchForProjekt() {
 		ProjektFilter fil = (ProjektFilter) filter;
-		value = Bigquerybase.fetchProjekt(fil.getProjekt());
+		value = Bigquerybase.fetchProjekt(fil.getKennzahl(), fil.getProjekt());
 		
 	}
 	public void fetchForBereich() {
 		BereichFilter fil = (BereichFilter) filter;
-		value = Bigquerybase.fetchBereich(fil.getBereich());
+		value = Bigquerybase.fetchBereich(fil.getKennzahl(), fil.getBereich());
 		
 	}
 	public void fetchForQuartal() {
 		QuartalFilter fil = (QuartalFilter) filter;
-		value = Bigquerybase.fetchQuartal(fil.getQuartal());
+		value = Bigquerybase.fetchQuartal(fil.getKennzahl(), fil.getQuartal(), fil.getJahr());
 		
 	}
 	public void fetchForMonth() {
 		MonatsFilter fil = (MonatsFilter) filter;
-		value = Bigquerybase.fetchMonat(fil.getMonat());
+		value = Bigquerybase.fetchMonat(fil.getKennzahl(), fil.getMonat(), fil.getJahr());
 		
 	}
 	public void fetchForYear() {
 		JahrFilter fil = (JahrFilter) filter;
-		value = Bigquerybase.fetchJahr(fil.getJahr());
+		value = Bigquerybase.fetchJahr(fil.getKennzahl(), fil.getJahr());
 		
 	}
 	

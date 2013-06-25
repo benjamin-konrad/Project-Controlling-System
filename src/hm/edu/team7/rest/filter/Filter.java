@@ -24,6 +24,9 @@ public class Filter {
 	public void setIdentifier(FilterIdentifier i){
 		this.filterId = i;
 	}
-	
+	public Kennzahl getKennzahl()
+	{
+		return kennzahl;
+	}
 	
 }
