@@ -142,18 +142,18 @@ public class bigquerytest   extends HttpServlet  {
 	    else if(args.equals("AllQuartals"))
     		querySql = "SELECT SUBSTR(monat, 1, 2) as	quart FROM 480761361715:csv_data.data group by quart";
 	    else if(args.equals("AllMonths"))
-    		querySql = "SELECT SUBSTR(monat, 1, 2) as quart FROM 480761361715:csv_data.data where monat contains "+param + " group by quart";
+    		querySql = "SELECT SUBSTR(monat, 1, 2) as quart FROM 480761361715:csv_data.data where monat contains \""+param + "\" group by quart";
 	    else if(args.equals("Bereiche"))
     		querySql = "SELECT bereich FROM 480761361715:csv_data.data group by bereich";
 	    else if(args.equals("Projekte"))
-    		querySql = "SELECT projekte FROM 480761361715:csv_data.data where bereich="+param + " group by projekte";
+    		querySql = "SELECT projekte FROM 480761361715:csv_data.data where bereich=\""+param + "\" group by projekte";
 	    else if(args.equals("Konten"))
-    		querySql = "SELECT konto FROM 480761361715:csv_data.data where bereich="+param.split(",")[0]+
-    		" and projekt="+param.split(",")[1] + " group by konto";
+    		querySql = "SELECT konto FROM 480761361715:csv_data.data where bereich=\""+param.split(",")[0]+
+    		"\" and projekt=\""+param.split(",")[1] + "\" group by konto";
 	    else if(args.equals("alleStufen"))
     		querySql = "SELECT entwicklungsstufe FROM 480761361715:csv_data.data group by entwicklungsstufe";
 	    else if(args.equals("alleMitarbeiter"))
-    		querySql = "SELECT mitarbeiter FROM 480761361715:csv_data.data where entwicklungsstufe="+param +" group by mitarbeiter";
+    		querySql = "SELECT mitarbeiter FROM 480761361715:csv_data.data where entwicklungsstufe=\""+param +"\" group by mitarbeiter";
 	    else
 	    	querySql = param;
 	    JobReference jobId = startQuery(bigquery, PROJECT_ID, querySql);
