@@ -13,12 +13,7 @@ public class Bigquerybase {
 	public static String fetchMitarbeiter(Kennzahl kennzahl, String mitarbeiter) {
 		String query = buildKennzahlquery(kennzahl, "mitarbeiter", mitarbeiter,
 				"", "");
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Mitarbeiter", query);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Mitarbeiter", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -34,12 +29,7 @@ public class Bigquerybase {
 			String projekt) {
 		String query = buildKennzahlquery(kennzahl, "projekt", projekt,
 				"bereich", bereich);
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Konto", query);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Konto", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -53,12 +43,7 @@ public class Bigquerybase {
 
 	public static String fetchProjekt(Kennzahl kennzahl, String projekt) {
 		String query = buildKennzahlquery(kennzahl, "projekt", projekt, "", "");
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Projekt", query);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekt", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -72,12 +57,7 @@ public class Bigquerybase {
 
 	public static String fetchBereich(Kennzahl kennzahl, String bereich) {
 		String query = buildKennzahlquery(kennzahl, "Bereich", bereich, "", "");
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Bereich", query);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Bereich", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -93,12 +73,7 @@ public class Bigquerybase {
 	public static String fetchQuartal(Kennzahl kennzahl, int quartal, int jahr) {
 		String query = buildKennzahlquery(kennzahl, "quartal",
 				String.valueOf(quartal), "jahr", String.valueOf(jahr));
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Quartal", query);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Quartal", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -114,12 +89,7 @@ public class Bigquerybase {
 	public static String fetchMonat(Kennzahl kennzahl, int monat, int jahr) {
 		String query = buildKennzahlquery(kennzahl, "monat",
 				String.valueOf(monat), "jahr", String.valueOf(jahr));
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Monat", query);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Monat", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -135,12 +105,7 @@ public class Bigquerybase {
 	public static String fetchJahr(Kennzahl kennzahl, int jahr) {
 		String query = buildKennzahlquery(kennzahl, "jahr",
 				String.valueOf(jahr), "", "");
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Jahr", query);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Jahr", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -155,12 +120,7 @@ public class Bigquerybase {
 	public static String fetchStufe(Kennzahl kennzahl, int stufe) {
 		String query = buildKennzahlquery(kennzahl, "entwicklungsstufe",
 				String.valueOf(stufe), "", "");
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Stufe", query);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Stufe", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -174,12 +134,7 @@ public class Bigquerybase {
 	}
 
 	public static Integer[] fetchallYears() {
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("AllYears", "");
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllYears", "");
 		List<TableRow> rows = queryResult.getRows();
 		List<Integer> result = null;
 		for (TableRow row : rows) {
@@ -197,13 +152,9 @@ public class Bigquerybase {
 	}
 
 	public static Integer[] fetchallMonth(int year) {
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("AllMonths",
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllMonths",
 					String.valueOf(year));
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+
 		List<TableRow> rows = queryResult.getRows();
 		List<Integer> result = null;
 		for (TableRow row : rows) {
@@ -222,13 +173,8 @@ public class Bigquerybase {
 	}
 
 	public static Integer[] fetchallQuartal(int quartal) {
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("AllQuartals",
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllQuartals",
 					String.valueOf(quartal));
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
 		List<TableRow> rows = queryResult.getRows();
 		List<Integer> result = null;
 		for (TableRow row : rows) {
@@ -254,12 +200,7 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallBereiche() {
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Bereiche", "");
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Bereiche", "");
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -272,12 +213,7 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallProjekte(String bereich) {
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Projekte", bereich);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekte", bereich);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -290,13 +226,8 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallKonten(String bereich, String projekt) {
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("Konten", bereich + ","
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Konten", bereich + ","
 					+ projekt);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -309,12 +240,7 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallStufen() {
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("alleStufen", "");
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("alleStufen", "");
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {
@@ -327,12 +253,7 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallMitarbeiter(String estufe) {
-		GetQueryResultsResponse queryResult = null;
-		try {
-			queryResult = bigquerytest.queryBig("alleMitarbeiter", estufe);
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("alleMitarbeiter", estufe);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = null;
 		for (TableRow row : rows) {

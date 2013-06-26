@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 
@@ -53,6 +54,7 @@ public class bigquerytest   extends HttpServlet  {
   /////////////////////////
   private static final String PROJECT_ID = "480761361715";
   private static final String CLIENTSECRETS_LOCATION = "D:\\Progg\\Spielwiese\\SWE2\\src\\client_secrets.json";
+  private static final Logger log = Logger.getLogger(bigquerytest.class.getName());
 
   static GoogleClientSecrets clientSecrets = loadClientSecrets(CLIENTSECRETS_LOCATION);
 
@@ -117,25 +119,31 @@ public class bigquerytest   extends HttpServlet  {
     displayQueryResults(bigquery, PROJECT_ID, completedJob);
 
   }
-  public static GetQueryResultsResponse queryBig(String args, String param) throws IOException, InterruptedException
+  public static GetQueryResultsResponse queryBig(String args, String param) 
   {
 	  // Create a new BigQuery client authorized via OAuth 2.0 protocol
 	    //Bigquery bigquery = createAuthorizedClient();
-	  Bigquery bigquery;
+	  Bigquery bigquery = null;
 	    GoogleCredential credential;
 		try {
-			credential = new GoogleCredential.Builder().setTransport(TRANSPORT)
-			        .setJsonFactory(JSON_FACTORY)
-			        .setServiceAccountId("pro-con-sys@appspot.gserviceaccount.com")
-			        .setServiceAccountScopes(SCOPE)
-			        .setServiceAccountPrivateKeyFromP12File(new File("query.p12"))
-			        .build();
+			try {
+				credential = new GoogleCredential.Builder().setTransport(TRANSPORT)
+				        .setJsonFactory(JSON_FACTORY)
+				        .setServiceAccountId("pro-con-sys@appspot.gserviceaccount.com")
+				        .setServiceAccountScopes(SCOPE)
+				        .setServiceAccountPrivateKeyFromP12File(new File("query.p12"))
+				        .build();
 
 
 	        bigquery = new Bigquery.Builder(TRANSPORT, JSON_FACTORY, credential)
 	            .setApplicationName("BigQuery-Service-Accounts/0.1")
 	            .setHttpRequestInitializer(credential).build();
-	
+			} catch (IOException e) {
+				 log.info("bigquerybuilder.");
+
+				e.printStackTrace();
+			}
+
 	    String querySql = "";
 	    if(args.equals("AllYears"))
     		querySql = "SELECT SUBSTR(monat, 4, 4) as Jahr FROM 480761361715:csv_data.data group by Jahr";
@@ -164,7 +172,7 @@ public class bigquerytest   extends HttpServlet  {
 	    
 	    return returnresult(bigquery, PROJECT_ID, completedJob);
 		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
+			log.info("jobmethods.");
 			e.printStackTrace();
 			return null;
 		}
@@ -182,7 +190,7 @@ public class bigquerytest   extends HttpServlet  {
 			            .getJobId()
 			        ).execute();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			log.info("returnresult.");
 			e.printStackTrace();
 		}
 	return queryResult;
@@ -198,7 +206,7 @@ public class bigquerytest   extends HttpServlet  {
 * @return an authorized BigQuery client
 * @throws IOException
 */
-  public static Bigquery createAuthorizedClient() throws IOException {
+  public static Bigquery createAuthorizedClient()  {
 
     String authorizeUrl = new GoogleAuthorizationCodeRequestUrl(
         clientSecrets,
@@ -209,12 +217,20 @@ public class bigquerytest   extends HttpServlet  {
 
     System.out.println("... and type the code you received here: ");
     BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-    String authorizationCode = in.readLine();
+    String authorizationCode;
+	try {
+		authorizationCode = in.readLine();
+
 
     // Exchange the auth code for an access token and refresh token
     Credential credential = exchangeCode(authorizationCode);
 
     return new Bigquery(TRANSPORT, JSON_FACTORY, credential);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+	}
   }
 
   /**
@@ -222,11 +238,14 @@ public class bigquerytest   extends HttpServlet  {
 *
 * @param bigquery an authorized BigQuery client
 * @param projectId a string containing the current project ID
-* @throws IOException
+
 */
   public static void listDatasets(Bigquery bigquery, String projectId)
-      throws IOException {
-    Datasets.List datasetRequest = bigquery.datasets().list(projectId);
+       {
+    Datasets.List datasetRequest;
+	try {
+		datasetRequest = bigquery.datasets().list(projectId);
+
     DatasetList datasetList = datasetRequest.execute();
     if (datasetList.getDatasets() != null) {
       List<DatasetList.Datasets> datasets = datasetList.getDatasets();
@@ -236,6 +255,10 @@ public class bigquerytest   extends HttpServlet  {
         System.out.format("%s\n", dataset.getDatasetReference().getDatasetId());
       }
     }
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
 
   /**
@@ -245,10 +268,9 @@ public class bigquerytest   extends HttpServlet  {
 * @param projectId a String containing the project ID
 * @param querySql the actual query string
 * @return a reference to the inserted query job
-* @throws IOException
 */
   public static JobReference startQuery(Bigquery bigquery, String projectId,
-                                        String querySql) throws IOException {
+                                        String querySql) {
     System.out.format("\nInserting Query Job: %s\n", querySql);
 
     Job job = new Job();
@@ -259,13 +281,23 @@ public class bigquerytest   extends HttpServlet  {
     job.setConfiguration(config);
     queryConfig.setQuery(querySql);
 
-    Insert insert = bigquery.jobs().insert(projectId, job);
+    Insert insert;
+	try {
+		insert = bigquery.jobs().insert(projectId, job);
+
     insert.setProjectId(projectId);
-    JobReference jobId = insert.execute().getJobReference();
+    JobReference jobId;
+		jobId = insert.execute().getJobReference();
+
 
     System.out.format("\nJob ID of Query Job is: %s\n", jobId.getJobId());
 
     return jobId;
+	} catch (IOException e) {
+		log.info("startquery.");
+		e.printStackTrace();
+		return null;
+	}
   }
 
   /**
@@ -275,27 +307,38 @@ public class bigquerytest   extends HttpServlet  {
 * @param projectId a string containing the current project ID
 * @param jobId a reference to an inserted query Job
 * @return a reference to the completed Job
-* @throws IOException
-* @throws InterruptedException
+
 */
   private static Job checkQueryResults(Bigquery bigquery, String projectId, JobReference jobId)
-      throws IOException, InterruptedException {
+      {
     // Variables to keep track of total query time
     long startTime = System.currentTimeMillis();
     long elapsedTime;
 
     while (true) {
-      Job pollJob = bigquery.jobs().get(projectId, jobId.getJobId()).execute();
+      Job pollJob;
+	try {
+		pollJob = bigquery.jobs().get(projectId, jobId.getJobId()).execute();
+
       elapsedTime = System.currentTimeMillis() - startTime;
       System.out.format("Job status (%dms) %s: %s\n", elapsedTime,
           jobId.getJobId(), pollJob.getStatus().getState());
       if (pollJob.getStatus().getState().equals("DONE")) {
         return pollJob;
       }
+	} catch (IOException e1) {
+		log.info("checkqueryresult.");
+		e1.printStackTrace();
+	}
       // Pause execution for one second before polling job status again, to
       // reduce unnecessary calls to the BigQUery API and lower overall
       // application bandwidth.
-      Thread.sleep(1000);
+      try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e) {
+		log.info("threadinterrupt.");
+		e.printStackTrace();
+	}
     }
   }
 
@@ -305,16 +348,18 @@ public class bigquerytest   extends HttpServlet  {
 * @param bigquery an authorized BigQuery client
 * @param projectId a string containing the current project ID
 * @param completedJob to the completed Job
-* @throws IOException
 */
   private static void displayQueryResults(Bigquery bigquery,
-                                          String projectId, Job completedJob) throws IOException {
-    GetQueryResultsResponse queryResult = bigquery.jobs()
-        .getQueryResults(
-            projectId, completedJob
-            .getJobReference()
-            .getJobId()
-        ).execute();
+                                          String projectId, Job completedJob) {
+    GetQueryResultsResponse queryResult;
+	try {
+		queryResult = bigquery.jobs()
+		    .getQueryResults(
+		        projectId, completedJob
+		        .getJobReference()
+		        .getJobId()
+		    ).execute();
+
     List<TableRow> rows = queryResult.getRows();
     System.out.print("\nQuery Results:\n------------\n");
     for (TableRow row : rows) {
@@ -323,6 +368,10 @@ public class bigquerytest   extends HttpServlet  {
        }
       System.out.println();
     }
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
 
 
