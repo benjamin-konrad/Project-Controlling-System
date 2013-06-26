@@ -19,6 +19,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeReque
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
+import com.google.api.client.googleapis.extensions.appengine.auth.oauth2.AppIdentityCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -124,58 +125,40 @@ public class bigquerytest   extends HttpServlet  {
 	  // Create a new BigQuery client authorized via OAuth 2.0 protocol
 	    //Bigquery bigquery = createAuthorizedClient();
 	  Bigquery bigquery = null;
-	    GoogleCredential credential;
-		try {
-			try {
-				credential = new GoogleCredential.Builder().setTransport(TRANSPORT)
-				        .setJsonFactory(JSON_FACTORY)
-				        .setServiceAccountId("pro-con-sys@appspot.gserviceaccount.com")
-				        .setServiceAccountScopes(SCOPE)
-				        .setServiceAccountPrivateKeyFromP12File(new File("query.p12"))
-				        .build();
+	    AppIdentityCredential credential;
+		credential = new AppIdentityCredential(SCOPE);
 
+     bigquery = new Bigquery.Builder(TRANSPORT, JSON_FACTORY, credential)
+		.setApplicationName("BigQuery-Service-Accounts/0.1")
+		.setHttpRequestInitializer(credential).build();
 
-	        bigquery = new Bigquery.Builder(TRANSPORT, JSON_FACTORY, credential)
-	            .setApplicationName("BigQuery-Service-Accounts/0.1")
-	            .setHttpRequestInitializer(credential).build();
-			} catch (IOException e) {
-				 log.info("bigquerybuilder.");
+   String querySql = "";
+   if(args.equals("AllYears"))
+		querySql = "SELECT SUBSTR(monat, 4, 4) as Jahr FROM 480761361715:csv_data.data group by Jahr";
+   else if(args.equals("AllQuartals"))
+		querySql = "SELECT SUBSTR(monat, 1, 2) as	quart FROM 480761361715:csv_data.data group by quart";
+   else if(args.equals("AllMonths"))
+		querySql = "SELECT SUBSTR(monat, 1, 2) as quart FROM 480761361715:csv_data.data where monat contains \""+param + "\" group by quart";
+   else if(args.equals("Bereiche"))
+		querySql = "SELECT bereich FROM 480761361715:csv_data.data group by bereich";
+   else if(args.equals("Projekte"))
+		querySql = "SELECT projekte FROM 480761361715:csv_data.data where bereich=\""+param + "\" group by projekte";
+   else if(args.equals("Konten"))
+		querySql = "SELECT konto FROM 480761361715:csv_data.data where bereich=\""+param.split(",")[0]+
+		"\" and projekt=\""+param.split(",")[1] + "\" group by konto";
+   else if(args.equals("alleStufen"))
+		querySql = "SELECT entwicklungsstufe FROM 480761361715:csv_data.data group by entwicklungsstufe";
+   else if(args.equals("alleMitarbeiter"))
+		querySql = "SELECT mitarbeiter FROM 480761361715:csv_data.data where entwicklungsstufe="+param +" group by mitarbeiter";
+   else
+		querySql = param;
+   JobReference jobId = startQuery(bigquery, PROJECT_ID, querySql);
+   
 
-				e.printStackTrace();
-			}
-
-	    String querySql = "";
-	    if(args.equals("AllYears"))
-    		querySql = "SELECT SUBSTR(monat, 4, 4) as Jahr FROM 480761361715:csv_data.data group by Jahr";
-	    else if(args.equals("AllQuartals"))
-    		querySql = "SELECT SUBSTR(monat, 1, 2) as	quart FROM 480761361715:csv_data.data group by quart";
-	    else if(args.equals("AllMonths"))
-    		querySql = "SELECT SUBSTR(monat, 1, 2) as quart FROM 480761361715:csv_data.data where monat contains \""+param + "\" group by quart";
-	    else if(args.equals("Bereiche"))
-    		querySql = "SELECT bereich FROM 480761361715:csv_data.data group by bereich";
-	    else if(args.equals("Projekte"))
-    		querySql = "SELECT projekte FROM 480761361715:csv_data.data where bereich=\""+param + "\" group by projekte";
-	    else if(args.equals("Konten"))
-    		querySql = "SELECT konto FROM 480761361715:csv_data.data where bereich=\""+param.split(",")[0]+
-    		"\" and projekt=\""+param.split(",")[1] + "\" group by konto";
-	    else if(args.equals("alleStufen"))
-    		querySql = "SELECT entwicklungsstufe FROM 480761361715:csv_data.data group by entwicklungsstufe";
-	    else if(args.equals("alleMitarbeiter"))
-    		querySql = "SELECT mitarbeiter FROM 480761361715:csv_data.data where entwicklungsstufe=\""+param +"\" group by mitarbeiter";
-	    else
-	    	querySql = param;
-	    JobReference jobId = startQuery(bigquery, PROJECT_ID, querySql);
-	    
-
-	    // Poll for Query Results, return result output
-	    Job completedJob = checkQueryResults(bigquery, PROJECT_ID, jobId);
-	    
-	    return returnresult(bigquery, PROJECT_ID, completedJob);
-		} catch (GeneralSecurityException e) {
-			log.info("jobmethods.");
-			e.printStackTrace();
-			return null;
-		}
+   // Poll for Query Results, return result output
+   Job completedJob = checkQueryResults(bigquery, PROJECT_ID, jobId);
+   
+   return returnresult(bigquery, PROJECT_ID, completedJob);
   }
 
   private static GetQueryResultsResponse returnresult(Bigquery bigquery, String projectId,

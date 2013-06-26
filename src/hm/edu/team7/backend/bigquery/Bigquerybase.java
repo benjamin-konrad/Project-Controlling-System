@@ -3,6 +3,7 @@ package hm.edu.team7.backend.bigquery;
 import hm.edu.team7.rest.jaxb.model.Kennzahl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.api.services.bigquery.model.GetQueryResultsResponse;
@@ -15,14 +16,20 @@ public class Bigquerybase {
 				"", "");
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Mitarbeiter", query);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				result.add((String) field.getV());
 
 			}
 		}
-		return result.get(0);
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray[0];
 	}
 
 	public static String fetchKonto(Kennzahl kennzahl, String bereich,
@@ -31,42 +38,60 @@ public class Bigquerybase {
 				"bereich", bereich);
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Konto", query);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				result.add((String) field.getV());
 
 			}
 		}
-		return result.get(0);
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray[0];
 	}
 
 	public static String fetchProjekt(Kennzahl kennzahl, String projekt) {
 		String query = buildKennzahlquery(kennzahl, "projekt", projekt, "", "");
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekt", query);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				result.add((String) field.getV());
 
 			}
 		}
-		return result.get(0);
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray[0];
 	}
 
 	public static String fetchBereich(Kennzahl kennzahl, String bereich) {
 		String query = buildKennzahlquery(kennzahl, "Bereich", bereich, "", "");
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Bereich", query);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				result.add((String) field.getV());
 
 			}
 		}
-		return result.get(0);
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray[0];
 
 	}
 
@@ -75,14 +100,20 @@ public class Bigquerybase {
 				String.valueOf(quartal), "jahr", String.valueOf(jahr));
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Quartal", query);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				result.add((String) field.getV());
 
 			}
 		}
-		return result.get(0);
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray[0];
 
 	}
 
@@ -91,14 +122,20 @@ public class Bigquerybase {
 				String.valueOf(monat), "jahr", String.valueOf(jahr));
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Monat", query);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				result.add((String) field.getV());
 
 			}
 		}
-		return result.get(0);
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray[0];
 
 	}
 
@@ -107,14 +144,20 @@ public class Bigquerybase {
 				String.valueOf(jahr), "", "");
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Jahr", query);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				result.add((String) field.getV());
 
 			}
 		}
-		return result.get(0);
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray[0];
 	}
 
 	public static String fetchStufe(Kennzahl kennzahl, int stufe) {
@@ -122,21 +165,27 @@ public class Bigquerybase {
 				String.valueOf(stufe), "", "");
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Stufe", query);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				result.add((String) field.getV());
 
 			}
 		}
-		return result.get(0);
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray[0];
 
 	}
 
 	public static Integer[] fetchallYears() {
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllYears", "");
 		List<TableRow> rows = queryResult.getRows();
-		List<Integer> result = null;
+		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				Integer monat = Integer.parseInt(((String) field.getV())
@@ -148,7 +197,13 @@ public class Bigquerybase {
 
 			}
 		}
-		return (Integer[]) result.toArray();
+		Integer[] returnarray = new Integer[result.size()];
+		int i = 0;
+		for(Integer res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray;
 	}
 
 	public static Integer[] fetchallMonth(int year) {
@@ -156,7 +211,7 @@ public class Bigquerybase {
 					String.valueOf(year));
 
 		List<TableRow> rows = queryResult.getRows();
-		List<Integer> result = null;
+		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				Integer monat = Integer.parseInt(((String) field.getV())
@@ -169,14 +224,20 @@ public class Bigquerybase {
 
 			}
 		}
-		return (Integer[]) result.toArray();
+		Integer[] returnarray = new Integer[result.size()];
+		int i = 0;
+		for(Integer res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray;
 	}
 
 	public static Integer[] fetchallQuartal(int quartal) {
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllQuartals",
 					String.valueOf(quartal));
 		List<TableRow> rows = queryResult.getRows();
-		List<Integer> result = null;
+		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				Integer monat = Integer.parseInt(((String) field.getV())
@@ -196,73 +257,109 @@ public class Bigquerybase {
 					result.add(quart);
 			}
 		}
-		return (Integer[]) result.toArray();
+		Integer[] returnarray = new Integer[result.size()];
+		int i = 0;
+		for(Integer res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray;
 	}
 
 	public static String[] fetchallBereiche() {
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Bereiche", "");
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 
 				result.add((String) field.getV());
 			}
 		}
-		return (String[]) result.toArray();
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray;
 	}
 
 	public static String[] fetchallProjekte(String bereich) {
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekte", bereich);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 
 				result.add((String) field.getV());
 			}
 		}
-		return (String[]) result.toArray();
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray;
 	}
 
 	public static String[] fetchallKonten(String bereich, String projekt) {
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Konten", bereich + ","
 					+ projekt);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 
 				result.add((String) field.getV());
 			}
 		}
-		return (String[]) result.toArray();
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray;
 	}
 
 	public static String[] fetchallStufen() {
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("alleStufen", "");
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 
 				result.add((String) field.getV());
 			}
 		}
-		return (String[]) result.toArray();
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray;
 	}
 
 	public static String[] fetchallMitarbeiter(String estufe) {
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("alleMitarbeiter", estufe);
 		List<TableRow> rows = queryResult.getRows();
-		List<String> result = null;
+		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 
 				result.add((String) field.getV());
 			}
 		}
-		return (String[]) result.toArray();
+		String[] returnarray = new String[result.size()];
+		int i = 0;
+		for(String res:result){
+			returnarray[i] = res;
+			i++;
+		}
+		return returnarray;
 	}
 
 	private static String buildKennzahlquery(Kennzahl kennzahl, String filter,
