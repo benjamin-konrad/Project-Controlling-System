@@ -137,40 +137,27 @@ public class bigquerytest   extends HttpServlet  {
 	            .setHttpRequestInitializer(credential).build();
 	
 	    String querySql = "";
-	    if(args.equals("Mitarbeiter"))
-	    		querySql = param;
-	    if(args.equals("Konto"))
-    		querySql = param;
-	    if(args.equals("Projekt"))
-    		querySql = param;
-	    if(args.equals("Bereich"))
-    		querySql = param;
-	    if(args.equals("Quartal"))
-    		querySql = param;
-	    if(args.equals("Monat"))
-    		querySql = param;
-	    if(args.equals("Jahr"))
-    		querySql = param;
-	    if(args.equals("Stufe"))
-    		querySql = param;
 	    if(args.equals("AllYears"))
     		querySql = "SELECT Jahr FROM 480761361715:csv_data.data group by Jahr";
-	    if(args.equals("AllMonths"))
+	    else if(args.equals("AllMonths"))
     		querySql = "SELECT Monat FROM 480761361715:csv_data.data group by Monat";
-	    if(args.equals("AllMonths"))
+	    else if(args.equals("AllMonths"))
     		querySql = "SELECT Monat FROM 480761361715:csv_data.data where Jahr="+param + " group by monat";
-	    if(args.equals("Bereiche"))
+	    else if(args.equals("Bereiche"))
     		querySql = "SELECT bereich FROM 480761361715:csv_data.data group by bereich";
-	    if(args.equals("Projekte"))
+	    else if(args.equals("Projekte"))
     		querySql = "SELECT projekte FROM 480761361715:csv_data.data where bereich="+param + " group by projekte";
-	    if(args.equals("Konten"))
+	    else if(args.equals("Konten"))
     		querySql = "SELECT konto FROM 480761361715:csv_data.data where bereich="+param.split(",")[0]+
     		" and projekt="+param.split(",")[1] + " group by konto";
-	    if(args.equals("alleStufen"))
+	    else if(args.equals("alleStufen"))
     		querySql = "SELECT entwicklungsstufe FROM 480761361715:csv_data.data group by entwicklungsstufe";
-	    if(args.equals("alleMitarbeiter"))
+	    else if(args.equals("alleMitarbeiter"))
     		querySql = "SELECT mitarbeiter FROM 480761361715:csv_data.data where entwicklungsstufe="+param +" group by mitarbeiter";
+	    else
+	    	querySql = param;
 	    JobReference jobId = startQuery(bigquery, PROJECT_ID, querySql);
+	    
 
 	    // Poll for Query Results, return result output
 	    Job completedJob = checkQueryResults(bigquery, PROJECT_ID, jobId);

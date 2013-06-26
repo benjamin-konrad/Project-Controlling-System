@@ -386,7 +386,8 @@ public class Bigquerybase {
 
 		// wildcard
 		if (filter.equals("jahr"))
-			filterquery = filterquery + filter + " contains "  + filtervalue + "";
+			filterquery = filterquery + filter + " contains " + filtervalue
+					+ "";
 		if (kennzahl == Kennzahl.LEISTUNG) {
 			query = "select sum(stunden) from 480761361715:csv_data.data where konto != \"URLAUB\" and konto!=\"KRANK\"";
 			if (filterquery.length() > 1)
@@ -401,7 +402,7 @@ public class Bigquerybase {
 						+ filterquery.substring(5);
 			filterquery2 = filterquery2 + " and " + filterquery.substring(5);
 
-			query = "select sum(t1.stunden)-sum(t2.stunden) from (select stunden, maid from 480761361715:csv_data.data "
+			query = "select sum(t1.stunden)/sum(t2.stunden) from (select stunden, maid from 480761361715:csv_data.data "
 					+ filterquery1
 					+ ") as t1 left join(select  stunden , maid from 480761361715:csv_data.data "
 					+ filterquery2 + ")as t2 on t1.maid = t2.maid;";
