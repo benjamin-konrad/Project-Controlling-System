@@ -224,7 +224,7 @@ public class Bigquerybase {
 	public static Integer[] fetchallQuartal(int quartal) {
 		GetQueryResultsResponse queryResult = null;
 		try {
-			queryResult = bigquerytest.queryBig("AllMonths",
+			queryResult = bigquerytest.queryBig("AllQuartals",
 					String.valueOf(quartal));
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
