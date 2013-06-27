@@ -37,7 +37,7 @@ define(
 								that._afterOnDndDrop(args[0], args[1]);
 							});
 
-							this.tree.onDblClick = this._onDblClick;
+							this.tree.onDblClick = lang.hitch(this, this._onDblClick);
 							this.tree.startup();
 						},
 
@@ -104,7 +104,7 @@ define(
 								var childItem = sourceItem.data.item;
 								var ident = this.observableStore.get(childItem.id);
 								if (!(ident === undefined)
-										|| (this.observableStore.get("maxType") !== undefined && this.observableStore.get("maxType").maxType != undefined && childItem.type !== this.observableStore
+										|| (this.observableStore.get("maxType") !== undefined && this.observableStore.get("maxType").maxType != undefined && childItem.fident !== this.observableStore
 												.get("maxType").maxType))
 
 									nodes.length = 0;

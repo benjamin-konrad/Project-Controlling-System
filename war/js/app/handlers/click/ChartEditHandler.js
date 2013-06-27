@@ -1,7 +1,7 @@
 define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(declare, dojo, registry, on) {
 	return declare([], {
 
-		constructor : function(dataFetcher,  restTree, dndTree) {
+		constructor : function(dataFetcher, restTree, dndTree) {
 			this.dataFetcher = dataFetcher;
 			this.dndTree = dndTree;
 			this.restTree = restTree;
@@ -11,7 +11,7 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 			var _this = this;
 			var filter = "ZEIT", kennzahl = "LEISTUNG", chart = "ClusteredBars", name = "";
 			if (empty === false) {
-				filter = portlet.getTypeOfFilter();
+				this.typeOfFilter = portlet.getTypeOfFilter();
 				kennzahl = portlet.getTypeOfKennzahl();
 				name = portlet.getName();
 				chart = portlet.getTypeOfChart();
@@ -27,12 +27,12 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 				registry.byId("select_Filter").set('disabled', false);
 				registry.byId("select_Kennzahl").set("disabled", false);
 			}
-			registry.byId("select_Filter").set("value", filter);
+			registry.byId("select_Filter").set("value", this.typeOfFilter);
 			registry.byId("select_Kennzahl").set("value", kennzahl);
 			registry.byId("txt_chartName").set("value", name);
 			registry.byId("select_Chart").set("value", chart);
 
-			if(empty === false)
+			if (empty === false)
 				registry.byId("dlg_createChart_FirstStep").show();
 		},
 
@@ -40,17 +40,24 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 			this.chartName = registry.byId("txt_chartName").get("value");
 			this.typeOfChart = registry.byId("select_Chart").get("value");
 			this.restTree.showTree(this.typeOfFilter);
-			this.dndTree.setStore(portlet.getStore());
+			this.dndTree.setStore(portlet.getWidgetStore());
 		},
-		
-		onClickChartSecondStepEdit : function(portlet){
+
+		onClickChartSecondStepEdit : function(portlet) {
 			portlet.setName(this.chartName);
 			portlet.setTypeOfChart(this.typeOfChart);
-			this.chartDataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, this.widgetStore, this.RestTree.model.store, function(dataStore){				
+			this.chartDataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, this.widgetStore, this.restTree.model.store, function(dataStore) {
 				portlet.refreshChart(dataStore);
 			}, portlet.getDataStore());
 			this.btn_firstStepCommitOnClick.remove();
 			this.btn_secondStepCommitOnClick.remove();
+		},
+
+		onClose : function(first) {
+			if (first === true && this.btn_firstStepCommitOnClick !== undefined)
+				this.btn_firstStepCommitOnClick.remove();
+			if (first !== true && this.btn_secondStepCommitOnClick !== undefined)
+				this.btn_secondStepCommitOnClick.remove();
 		}
 	});
 });

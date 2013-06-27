@@ -8,11 +8,6 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "app/portlets/ChartPort
 			this.portletIdToPortlet = portletIdToPortlet;
 			this.chartDataFetcher = new ChartDataFetcher("http://pro-con-sys.appspot.com/api/filter");
 			this.editHandler = new ChartEditHandler(this.chartDataFetcher, RestTree, dndTree);
-			
-			var _this = this;
-			registry.byId("dlg_createChart_FirstStep").on("hide", function(){
-				_this.onClose();
-			});
 		},
 
 		beforeOnClickChartFirstStepCreate : function() {
@@ -56,20 +51,24 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "app/portlets/ChartPort
 				title : this.chartName,
 				isLoaded : false
 			});
+			port.setWidgetStore(this.widgetStore);
 			port.doPostCreate();
 			registry.byId("portletGrid").addChild(port);
 			var _this = this;
-			this.chartDataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, this.widgetStore, this.restTree.model.store, function(dataStore){				
+			this.chartDataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, this.widgetStore, this.restTree.model.store, function(dataStore) {
 				var portletId = port.init(_this.typeOfFilter, _this.typeOfKennzahl, _this.typeOfChart, _this.editHandler, dataStore);
 				_this.portletIdToPortlet[portletId] = port;
 			});
 			this.btn_firstStepCommitOnClick.remove();
 			this.btn_secondStepCommitOnClick.remove();
 		},
-		
-		onClose : function(){
-			this.btn_firstStepCommitOnClick.remove();
-			this.btn_secondStepCommitOnClick.remove();
+
+		onClose : function(first) {
+			if (first === true && this.btn_firstStepCommitOnClick !== undefined)
+				this.btn_firstStepCommitOnClick.remove();
+			if (first !== true && this.btn_secondStepCommitOnClick !== undefined)
+				this.btn_secondStepCommitOnClick.remove();
+			this.editHandler.onClose(first);
 		}
 	});
 });

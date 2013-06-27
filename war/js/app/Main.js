@@ -72,6 +72,14 @@ function main() {
 		on(registry.byId("tb_menubar_NewChart"), "click", function() {
 			handler.beforeOnClickChartFirstStepCreate();
 		});
+
+		on(registry.byId("dlg_createChart_FirstStep"), "hide", function(){
+			handler.onClose(true);
+		});
+		
+		on(registry.byId("dlg_createChart_SecondStep"), "hide", function(){
+			handler.onClose(false);
+		});
 	});
 
 }

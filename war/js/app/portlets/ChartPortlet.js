@@ -34,11 +34,10 @@ define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/Res
 			this.typeOfFilter = typeOfFilter;
 			this.typeOfKennzahl = typeOfKennzahl;
 			this.typeOfChart = typeOfChart;
-			this.widgetStore = widgetStore;
 			domConstruct.destroy(this.idOfStandby);
 			
 			
-			this.chart = new ChartWidget(typeOfChart, this.idOfChart, this.idOfLegend, widgetStore);
+			this.chart = new ChartWidget(typeOfChart, this.idOfChart, this.idOfLegend, typeOfFilter, dataStore);
 					
 			var startTopic = this.idOfChart + "Start";
 			var endTopic = this.idOfChart + "End";
@@ -63,8 +62,12 @@ define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/Res
 			this.chart.refreshTheme();
 		},
 
-		getStore : function() {
+		getWidgetStore : function() {
 			return this.widgetStore;
+		},
+		
+		setWidgetStore : function(widgetStore){
+			this.widgetStore = widgetStore;
 		},
 		
 		getDataStore : function(){
@@ -72,7 +75,7 @@ define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/Res
 		},
 		
 		refreshChart : function(store){
-			this.chart.updateDataStore(store);
+			this.chart.refreshTheme();
 		},
 
 		_onClickEdit : function() {

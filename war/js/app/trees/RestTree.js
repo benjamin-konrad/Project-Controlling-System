@@ -30,19 +30,25 @@ define([ "dojo/_base/declare", "dijit/Tree", "dojo/store/Memory", "dijit/tree/Ob
 
 		fetchData : function(filterType) {
 			dojo.style("ajaxLoaderContainer", "display", "block");
+			dojo.style("tableTree", "display", "none");
+			registry.byId("resizePane").resize({
+				h : 100,
+				w : 200
+			});
 			var _this = this;
 			var url = this.restUrl;
-			switch(filterType){
-			case "ZEIT" : 
+			switch (filterType) {
+			case "ZEIT":
 				url += "getTimeFilterList";
 				break;
 			case "MITARBEITER":
 				url += "getMitarbeiterFilterList";
 				break;
-			case "ORGANISATION" : 
+			case "ORGANISATION":
 				url += "getOrganisationFilterList";
 				break;
-			};
+			}
+			;
 			request(url).then(function(json) {
 				var obj = JSON.parse(json);
 				var objectArray = obj.possibleThingis;
@@ -51,6 +57,7 @@ define([ "dojo/_base/declare", "dijit/Tree", "dojo/store/Memory", "dijit/tree/Ob
 					_this.observableStore.put(object);
 				}
 				dojo.style("ajaxLoaderContainer", "display", "none");
+				dojo.style("tableTree", "display", "block");
 				_this.refreshStore();
 			}, function(error) {
 				console.log("error: " + error);
@@ -73,8 +80,10 @@ define([ "dojo/_base/declare", "dijit/Tree", "dojo/store/Memory", "dijit/tree/Ob
 		},
 
 		showTree : function(filterType) {
-			this.fetchData(filterType);
-			window.filter = filterType;
+			if (window.filter !== filterType) {
+				this.fetchData(filterType);
+				window.filter = filterType;
+			}
 		},
 
 	});

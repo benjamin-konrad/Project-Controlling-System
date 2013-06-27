@@ -27,7 +27,7 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 			})[0].maxType;
 
 			var dataInformations = dndStore.query({
-				type : maxType
+				fident : maxType
 			});
 
 			var callbacks = dataInformations.length;
@@ -61,7 +61,7 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 
 		_getUrlDataZeitFilter : function(dataInformation) {
 			var url = "/zeitfilter/";
-			if (dataInformation.type !== "JAHR")
+			if (dataInformation.fident !== "JAHR")
 				url += dataInformation.id.substring(0,4) + "/";
 			if (dataInformation.fident === "QUARTAL") {
 				url += "quartal/" + dataInformation.name.substring(1, 1) + "/";
@@ -89,7 +89,7 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 		_getUrlMitarbeiterFilter : function(dataInformation) {
 			var url = "/mitarbeiterfilter/";
 			if (dataInformation.fident === "ENTWICKLUNGSSTUFE")
-				url += "estuf/";
+				url += "estufe/";
 			else
 				url += "mitarbeiter/";
 			return url + dataInformation.id + "/";
