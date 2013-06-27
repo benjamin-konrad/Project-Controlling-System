@@ -111,11 +111,11 @@ public class Bigquerybase {
 		int i = 0;
 		for(String res:result){
 			int quart = 0;
-			if (Integer.parseInt(res) < 3)
+			if (Integer.parseInt(res) <= 3)
 				quart = 1;
-			else if (Integer.parseInt(res) < 6 )
+			else if (Integer.parseInt(res) <= 6 )
 				quart = 2;
-			else if (Integer.parseInt(res) < 9 )
+			else if (Integer.parseInt(res) <= 9 )
 				quart = 3;
 			else
 				quart = 4;
@@ -246,11 +246,11 @@ public class Bigquerybase {
 			for (TableCell field : row.getF()) {
 				Integer monat = Integer.parseInt(((String) field.getV()));
 				int quart = 0;
-				if (monat < 3 )
+				if (monat <= 3 )
 					quart = 1;
-				else if (monat < 6 )
+				else if (monat <= 6 )
 					quart = 2;
-				else if (monat < 9 )
+				else if (monat <= 9 )
 					quart = 3;
 				else
 					quart = 4;
