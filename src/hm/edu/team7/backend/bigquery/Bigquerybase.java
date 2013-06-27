@@ -14,7 +14,8 @@ public class Bigquerybase {
 	public static String fetchMitarbeiter(Kennzahl kennzahl, String mitarbeiter) {
 		String query = buildKennzahlquery(kennzahl, "mitarbeiter", mitarbeiter,
 				"", "");
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Mitarbeiter", query);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig(
+				"Mitarbeiter", query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -25,7 +26,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -36,7 +37,8 @@ public class Bigquerybase {
 			String projekt) {
 		String query = buildKennzahlquery(kennzahl, "projekt", projekt,
 				"bereich", bereich);
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Konto", query);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Konto",
+				query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -47,7 +49,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -56,7 +58,8 @@ public class Bigquerybase {
 
 	public static String fetchProjekt(Kennzahl kennzahl, String projekt) {
 		String query = buildKennzahlquery(kennzahl, "projekt", projekt, "", "");
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekt", query);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekt",
+				query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -67,7 +70,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -75,8 +78,9 @@ public class Bigquerybase {
 	}
 
 	public static String fetchBereich(Kennzahl kennzahl, String bereich) {
-		String query = buildKennzahlquery(kennzahl, "Bereich", bereich, "", "");
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Bereich", query);
+		String query = buildKennzahlquery(kennzahl, "bereich", bereich, "", "");
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Bereich",
+				query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -87,7 +91,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -98,7 +102,8 @@ public class Bigquerybase {
 	public static String fetchQuartal(Kennzahl kennzahl, int quartal, int jahr) {
 		String query = buildKennzahlquery(kennzahl, "quartal",
 				String.valueOf(quartal), "jahr", String.valueOf(jahr));
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Quartal", query);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Quartal",
+				query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -109,13 +114,13 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			int quart = 0;
 			if (Integer.parseInt(res) <= 3)
 				quart = 1;
-			else if (Integer.parseInt(res) <= 6 )
+			else if (Integer.parseInt(res) <= 6)
 				quart = 2;
-			else if (Integer.parseInt(res) <= 9 )
+			else if (Integer.parseInt(res) <= 9)
 				quart = 3;
 			else
 				quart = 4;
@@ -129,7 +134,8 @@ public class Bigquerybase {
 	public static String fetchMonat(Kennzahl kennzahl, int monat, int jahr) {
 		String query = buildKennzahlquery(kennzahl, "monat",
 				String.valueOf(monat), "jahr", String.valueOf(jahr));
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Monat", query);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Monat",
+				query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -140,7 +146,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -151,7 +157,8 @@ public class Bigquerybase {
 	public static String fetchJahr(Kennzahl kennzahl, int jahr) {
 		String query = buildKennzahlquery(kennzahl, "jahr",
 				String.valueOf(jahr), "", "");
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Jahr", query);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Jahr",
+				query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -162,7 +169,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -172,7 +179,8 @@ public class Bigquerybase {
 	public static String fetchStufe(Kennzahl kennzahl, int stufe) {
 		String query = buildKennzahlquery(kennzahl, "entwicklungsstufe",
 				String.valueOf(stufe), "", "");
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Stufe", query);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Stufe",
+				query);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -183,7 +191,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -192,7 +200,8 @@ public class Bigquerybase {
 	}
 
 	public static Integer[] fetchallYears() {
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllYears", "");
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllYears",
+				"");
 		List<TableRow> rows = queryResult.getRows();
 		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
@@ -207,7 +216,7 @@ public class Bigquerybase {
 		}
 		Integer[] returnarray = new Integer[result.size()];
 		int i = 0;
-		for(Integer res:result){
+		for (Integer res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -215,22 +224,22 @@ public class Bigquerybase {
 	}
 
 	public static Integer[] fetchallMonth(int year) {
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllMonths",
-					String.valueOf(year));
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig(
+				"AllMonths", String.valueOf(year));
 
 		List<TableRow> rows = queryResult.getRows();
 		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				Integer monat = Integer.parseInt(((String) field.getV()));
-				if (!result.contains(monat) )
+				if (!result.contains(monat))
 					result.add(monat);
 
 			}
 		}
 		Integer[] returnarray = new Integer[result.size()];
 		int i = 0;
-		for(Integer res:result){
+		for (Integer res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -238,19 +247,19 @@ public class Bigquerybase {
 	}
 
 	public static Integer[] fetchallQuartal(int quartal) {
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("AllQuartals",
-					String.valueOf(quartal));
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig(
+				"AllQuartals", String.valueOf(quartal));
 		List<TableRow> rows = queryResult.getRows();
 		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
 				Integer monat = Integer.parseInt(((String) field.getV()));
 				int quart = 0;
-				if (monat <= 3 )
+				if (monat <= 3)
 					quart = 1;
-				else if (monat <= 6 )
+				else if (monat <= 6)
 					quart = 2;
-				else if (monat <= 9 )
+				else if (monat <= 9)
 					quart = 3;
 				else
 					quart = 4;
@@ -260,7 +269,7 @@ public class Bigquerybase {
 		}
 		Integer[] returnarray = new Integer[result.size()];
 		int i = 0;
-		for(Integer res:result){
+		for (Integer res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -268,7 +277,8 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallBereiche() {
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Bereiche", "");
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Bereiche",
+				"");
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -279,7 +289,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -287,7 +297,8 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallProjekte(String bereich) {
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekte", bereich);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekte",
+				bereich);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -298,7 +309,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -306,8 +317,8 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallKonten(String bereich, String projekt) {
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Konten", bereich + ","
-					+ projekt);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Konten",
+				bereich + "," + projekt);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -318,7 +329,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -326,7 +337,8 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallStufen() {
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("alleStufen", "");
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig(
+				"alleStufen", "");
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -337,7 +349,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
@@ -345,7 +357,8 @@ public class Bigquerybase {
 	}
 
 	public static String[] fetchallMitarbeiter(String estufe) {
-		GetQueryResultsResponse queryResult = bigquerytest.queryBig("alleMitarbeiter", estufe);
+		GetQueryResultsResponse queryResult = bigquerytest.queryBig(
+				"alleMitarbeiter", estufe);
 		List<TableRow> rows = queryResult.getRows();
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
@@ -356,7 +369,7 @@ public class Bigquerybase {
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
-		for(String res:result){
+		for (String res : result) {
 			returnarray[i] = res;
 			i++;
 		}
