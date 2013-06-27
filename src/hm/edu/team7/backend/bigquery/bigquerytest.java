@@ -142,7 +142,7 @@ public class bigquerytest   extends HttpServlet  {
    else if(args.equals("Bereiche"))
 		querySql = "SELECT bereich FROM 480761361715:csv_data.data group by bereich";
    else if(args.equals("Projekte"))
-		querySql = "SELECT projekte FROM 480761361715:csv_data.data where bereich=\""+param + "\" group by projekte";
+		querySql = "SELECT projekt FROM 480761361715:csv_data.data where bereich=\""+param + "\" group by projekt";
    else if(args.equals("Konten"))
 		querySql = "SELECT konto FROM 480761361715:csv_data.data where bereich=\""+param.split(",")[0]+
 		"\" and projekt=\""+param.split(",")[1] + "\" group by konto";
