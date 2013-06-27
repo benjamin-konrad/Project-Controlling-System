@@ -136,10 +136,10 @@ public class bigquerytest   extends HttpServlet  {
    if(args.equals("AllYears"))
 		querySql = "SELECT SUBSTR(monat, 4, 4) as Jahr FROM 480761361715:csv_data.data group by Jahr";
    else if(args.equals("AllQuartals"))
-		querySql = "SELECT SUBSTR(monat, 1, 2) as	quart FROM 480761361715:csv_data.data group by quart";
+		querySql = "SELECT SUBSTR(monat, 1, 2) as	quart FROM 480761361715:csv_data.data where monat contains \""+param + "\" group by quart";
    else if(args.equals("AllMonths"))
 		querySql = "SELECT SUBSTR(monat, 1, 2) as quart FROM 480761361715:csv_data.data where monat contains \""+param + "\" group by quart";
-   else if(args.equals("Bereiche"))
+   else if(args.equals("Bereich"))
 		querySql = "SELECT bereich FROM 480761361715:csv_data.data group by bereich";
    else if(args.equals("Projekte"))
 		querySql = "SELECT projekt FROM 480761361715:csv_data.data where bereich=\""+param + "\" group by projekt";
