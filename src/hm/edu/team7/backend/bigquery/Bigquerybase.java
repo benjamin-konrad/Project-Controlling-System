@@ -103,14 +103,23 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((String) field.getV());
+				result.add(((String) field.getV()));
 
 			}
 		}
 		String[] returnarray = new String[result.size()];
 		int i = 0;
 		for(String res:result){
-			returnarray[i] = res;
+			int quart = 0;
+			if (Integer.parseInt(res) < 3)
+				quart = 1;
+			else if (Integer.parseInt(res) < 6 )
+				quart = 2;
+			else if (Integer.parseInt(res) < 9 )
+				quart = 3;
+			else
+				quart = 4;
+			returnarray[i] = String.valueOf(quart);
 			i++;
 		}
 		return returnarray[0];
@@ -125,7 +134,7 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((String) field.getV());
+				result.add(((String) field.getV()));
 
 			}
 		}
@@ -147,7 +156,7 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((String) field.getV());
+				result.add((((String) field.getV())));
 
 			}
 		}
@@ -188,10 +197,9 @@ public class Bigquerybase {
 		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				Integer monat = Integer.parseInt(((String) field.getV())
-						.substring(0, 1));
-				Integer jahr = Integer.parseInt(((String) field.getV())
-						.substring(1));
+
+				String all = (String) field.getV();
+				Integer jahr = Integer.parseInt(all);
 				if (!result.contains(jahr))
 					result.add(jahr);
 
@@ -214,12 +222,8 @@ public class Bigquerybase {
 		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				Integer monat = Integer.parseInt(((String) field.getV())
-						.substring(0, 1));
-				Integer jahr = Integer.parseInt(((String) field.getV())
-						.substring(1));
-
-				if (!result.contains(monat) && jahr.equals(year))
+				Integer monat = Integer.parseInt(((String) field.getV()));
+				if (!result.contains(monat) )
 					result.add(monat);
 
 			}
@@ -240,16 +244,13 @@ public class Bigquerybase {
 		List<Integer> result = new ArrayList<Integer>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				Integer monat = Integer.parseInt(((String) field.getV())
-						.substring(0, 1));
-				Integer jahr = Integer.parseInt(((String) field.getV())
-						.substring(1));
+				Integer monat = Integer.parseInt(((String) field.getV()));
 				int quart = 0;
-				if (monat < 3 && jahr.equals(quartal))
+				if (monat < 3 )
 					quart = 1;
-				else if (monat < 6 && jahr.equals(quartal))
+				else if (monat < 6 )
 					quart = 2;
-				else if (monat < 9 && jahr.equals(quartal))
+				else if (monat < 9 )
 					quart = 3;
 				else
 					quart = 4;
