@@ -102,6 +102,10 @@ define([ "dojo/_base/declare", "dojox/charting/Chart", "dojox/charting/axis2d/De
 				_this.chart.setTheme(theme).render();
 			});
 		},
+		
+		getDataStore : function(){
+			return this.store;
+		},
 
 		getChart : function() {
 			return this.chart;
@@ -114,6 +118,8 @@ define([ "dojo/_base/declare", "dojox/charting/Chart", "dojox/charting/axis2d/De
 		
 		updateChart : function(){
 			this.chart.destroy();
+			this.legend.destroyRecursive(true);
+			this.legend = undefined;
 			this.handlerStart.remove();
 			this.handlerEnd.remove();
 			this.init();

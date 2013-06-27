@@ -12,7 +12,7 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 			var filter = "ZEIT", kennzahl = "LEISTUNG", chart = "ClusteredBars", name = "";
 			if (empty === false) {
 				this.typeOfFilter = portlet.getTypeOfFilter();
-				kennzahl = portlet.getTypeOfKennzahl();
+				this.typeOfKennzahl = portlet.getTypeOfKennzahl();
 				name = portlet.getName();
 				chart = portlet.getTypeOfChart();
 				this.btn_firstStepCommitOnClick = on(registry.byId("btn_firstStepCommit"), "click", function() {
@@ -28,7 +28,7 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 				registry.byId("select_Kennzahl").set("disabled", false);
 			}
 			registry.byId("select_Filter").set("value", this.typeOfFilter);
-			registry.byId("select_Kennzahl").set("value", kennzahl);
+			registry.byId("select_Kennzahl").set("value", this.typeOfKennzahl);
 			registry.byId("txt_chartName").set("value", name);
 			registry.byId("select_Chart").set("value", chart);
 
@@ -44,10 +44,10 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 		},
 
 		onClickChartSecondStepEdit : function(portlet) {
-			portlet.setName(this.chartName);
-			portlet.setTypeOfChart(this.typeOfChart);
-			this.chartDataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, this.widgetStore, this.restTree.model.store, function(dataStore) {
-				portlet.refreshChart();
+			var _this = this;
+			this.dataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, portlet.getWidgetStore(), this.restTree.model.store, function(dataStore) {
+				portlet.setName(_this.chartName);
+				portlet.setTypeOfChart(_this.typeOfChart);
 			}, portlet.getDataStore());
 			this.btn_firstStepCommitOnClick.remove();
 			this.btn_secondStepCommitOnClick.remove();
