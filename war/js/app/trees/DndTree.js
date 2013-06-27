@@ -79,18 +79,22 @@ define(
 							if (nodes.length > 0) {
 								var sourceItem = source.getItem(nodes[0].id);
 								var childItem = sourceItem.data.item;
-								var type = childItem.filter;
+								var type = childItem.fgruppe;
 								var types = window.filterTypes[type];
-								for ( var i = 0; i < types.length; i++) {
-									var foundData = this.observableStore.query({
-										type : types[i]
-									});
-									if (foundData.length > 0)
-										this.observableStore.put({
-											id : "maxType",
-											maxType : types[i]
-										})
-								}
+								this._lookForMaxType(types);
+							}
+						},
+						
+						_lookForMaxType : function(types){
+							for ( var i = 0; i < types.length; i++) {
+								var foundData = this.observableStore.query({
+									fident : types[i]
+								});
+								if (foundData.length > 0)
+									this.observableStore.put({
+										id : "maxType",
+										maxType : types[i]
+									})
 							}
 						},
 
@@ -111,6 +115,8 @@ define(
 							node.tree.model.store.remove(item.id);
 							if (node.tree.model.store.data === 0)
 								this.observableStore.get("maxType").maxType = undefined;
+							else
+								this._lookForMaxType(window.filterTypes[item.fgruppe]);
 						},
 
 					});
