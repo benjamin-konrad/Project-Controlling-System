@@ -43,7 +43,7 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "app/portlets/ChartPort
 			});
 
 			this.widgetStore = new Observable(dndStore);
-			this.dndTree.setStore(this.widgetStore);
+			this.dndTree.setStore(this.widgetStore, false);
 		},
 
 		onClickChartSecondStepCreate : function() {

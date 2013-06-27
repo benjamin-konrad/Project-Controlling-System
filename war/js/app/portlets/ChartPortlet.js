@@ -74,8 +74,12 @@ define([ "dojo/_base/declare", "dojo", "dojox/widget/Portlet", "dojox/layout/Res
 			return this.chart.getDataStore();
 		},
 		
-		refreshChart : function(store){
+		refreshChartTheme : function(){
 			this.chart.refreshTheme();
+		},
+		
+		refreshChart : function(){
+			this.chart.updateChart();
 		},
 
 		_onClickEdit : function() {

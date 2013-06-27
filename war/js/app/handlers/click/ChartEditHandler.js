@@ -40,14 +40,14 @@ define([ "dojo/_base/declare", "dojo", "dijit/registry", "dojo/on" ], function(d
 			this.chartName = registry.byId("txt_chartName").get("value");
 			this.typeOfChart = registry.byId("select_Chart").get("value");
 			this.restTree.showTree(this.typeOfFilter);
-			this.dndTree.setStore(portlet.getWidgetStore());
+			this.dndTree.setStore(portlet.getWidgetStore(), true);
 		},
 
 		onClickChartSecondStepEdit : function(portlet) {
 			portlet.setName(this.chartName);
 			portlet.setTypeOfChart(this.typeOfChart);
 			this.chartDataFetcher.fetchData(this.typeOfFilter, this.typeOfKennzahl, this.widgetStore, this.restTree.model.store, function(dataStore) {
-				portlet.refreshChart(dataStore);
+				portlet.refreshChart();
 			}, portlet.getDataStore());
 			this.btn_firstStepCommitOnClick.remove();
 			this.btn_secondStepCommitOnClick.remove();

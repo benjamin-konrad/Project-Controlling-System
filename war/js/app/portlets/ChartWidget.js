@@ -109,6 +109,10 @@ define([ "dojo/_base/declare", "dojox/charting/Chart", "dojox/charting/axis2d/De
 
 		updateTypeOfChart : function(typeOfChart) {
 			this.typeOfChart = typeOfChart;
+			this.updateChart();
+		},
+		
+		updateChart : function(){
 			this.chart.destroy();
 			this.handlerStart.remove();
 			this.handlerEnd.remove();

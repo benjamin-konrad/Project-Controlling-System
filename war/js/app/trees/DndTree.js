@@ -41,14 +41,15 @@ define(
 							this.tree.startup();
 						},
 
-						setStore : function(store) {
+						setStore : function(store, aspected) {
 							this.observableStore = store;
 							var that = this;
-
-							aspect.around(this.observableStore, "put", function(originalPut) {
-								that.originalPut = originalPut;
-								return lang.hitch(that, that._put);
-							});
+							if (aspected !== true) {
+								aspect.around(this.observableStore, "put", function(originalPut) {
+									that.originalPut = originalPut;
+									return lang.hitch(that, that._put);
+								});
+							}
 
 							this.tree.dndController.selectNone();
 							this.tree.model.store = store;
@@ -84,8 +85,8 @@ define(
 								this._lookForMaxType(types);
 							}
 						},
-						
-						_lookForMaxType : function(types){
+
+						_lookForMaxType : function(types) {
 							for ( var i = 0; i < types.length; i++) {
 								var foundData = this.observableStore.query({
 									fident : types[i]

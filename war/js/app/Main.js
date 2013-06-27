@@ -26,7 +26,7 @@ function main() {
 			window.chartTheme = registry.byId("select_chartTheme").get("value");
 			for ( var key in portletIdToPortlets) {
 				if (portletIdToPortlets.hasOwnProperty(key)) {
-					portletIdToPortlets[key].refreshChart();
+					portletIdToPortlets[key].refreshChartTheme();
 				}
 			}
 
