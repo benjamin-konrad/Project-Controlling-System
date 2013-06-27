@@ -37,18 +37,19 @@ define(
 								that._afterOnDndDrop(args[0], args[1]);
 							});
 
-							this.tree.onDblClick = this._onDblClick;
+							this.tree.onDblClick = lang.hitch(this, this._onDblClick);
 							this.tree.startup();
 						},
 
-						setStore : function(store) {
+						setStore : function(store, aspected) {
 							this.observableStore = store;
 							var that = this;
-
-							aspect.around(this.observableStore, "put", function(originalPut) {
-								that.originalPut = originalPut;
-								return lang.hitch(that, that._put);
-							});
+							if (aspected !== true) {
+								aspect.around(this.observableStore, "put", function(originalPut) {
+									that.originalPut = originalPut;
+									return lang.hitch(that, that._put);
+								});
+							}
 
 							this.tree.dndController.selectNone();
 							this.tree.model.store = store;
@@ -79,18 +80,22 @@ define(
 							if (nodes.length > 0) {
 								var sourceItem = source.getItem(nodes[0].id);
 								var childItem = sourceItem.data.item;
-								var type = childItem.filter;
+								var type = childItem.fgruppe;
 								var types = window.filterTypes[type];
-								for ( var i = 0; i < types.length; i++) {
-									var foundData = this.observableStore.query({
-										type : types[i]
-									});
-									if (foundData.length > 0)
-										this.observableStore.put({
-											id : "maxType",
-											maxType : types[i]
-										})
-								}
+								this._lookForMaxType(types);
+							}
+						},
+
+						_lookForMaxType : function(types) {
+							for ( var i = 0; i < types.length; i++) {
+								var foundData = this.observableStore.query({
+									fident : types[i]
+								});
+								if (foundData.length > 0)
+									this.observableStore.put({
+										id : "maxType",
+										maxType : types[i]
+									})
 							}
 						},
 
@@ -100,7 +105,7 @@ define(
 								var childItem = sourceItem.data.item;
 								var ident = this.observableStore.get(childItem.id);
 								if (!(ident === undefined)
-										|| (this.observableStore.get("maxType") !== undefined && this.observableStore.get("maxType").maxType != undefined && childItem.type !== this.observableStore
+										|| (this.observableStore.get("maxType") !== undefined && this.observableStore.get("maxType").maxType != undefined && childItem.fident !== this.observableStore
 												.get("maxType").maxType))
 
 									nodes.length = 0;
@@ -111,6 +116,8 @@ define(
 							node.tree.model.store.remove(item.id);
 							if (node.tree.model.store.data === 0)
 								this.observableStore.get("maxType").maxType = undefined;
+							else
+								this._lookForMaxType(window.filterTypes[item.fgruppe]);
 						},
 
 					});

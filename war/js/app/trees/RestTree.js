@@ -28,22 +28,37 @@ define([ "dojo/_base/declare", "dijit/Tree", "dojo/store/Memory", "dijit/tree/Ob
 			this.tree.startup();
 		},
 
-		fetchData : function() {
-			this.refreshStore();
+		fetchData : function(filterType) {
 			dojo.style("ajaxLoaderContainer", "display", "block");
+			dojo.style("tableTree", "display", "none");
+			registry.byId("resizePane").resize({
+				h : 100,
+				w : 200
+			});
 			var _this = this;
-			request(this.restUrl).then(function(text) {
-				var obj = JSON.parse(text);
-				var objectArray = obj.entries;
+			var url = this.restUrl;
+			switch (filterType) {
+			case "ZEIT":
+				url += "getTimeFilterList";
+				break;
+			case "MITARBEITER":
+				url += "getMitarbeiterFilterList";
+				break;
+			case "ORGANISATION":
+				url += "getOrganisationFilterList";
+				break;
+			}
+			;
+			request(url).then(function(json) {
+				var obj = JSON.parse(json);
+				var objectArray = obj.possibleThingis;
 				for ( var i = 0; i < objectArray.length; i++) {
 					var object = objectArray[i];
-					var parents = _this.observableStore.query({
-						id : object.parent
-					});
-					_this.model.newItem(object, parents[0]);
+					_this.observableStore.put(object);
 				}
-				console.log(text);
 				dojo.style("ajaxLoaderContainer", "display", "none");
+				dojo.style("tableTree", "display", "block");
+				_this.refreshStore();
 			}, function(error) {
 				console.log("error: " + error);
 			});
@@ -65,7 +80,10 @@ define([ "dojo/_base/declare", "dijit/Tree", "dojo/store/Memory", "dijit/tree/Ob
 		},
 
 		showTree : function(filterType) {
-			window.filter = filterType;
+			if (window.filter !== filterType) {
+				this.fetchData(filterType);
+				window.filter = filterType;
+			}
 		},
 
 	});

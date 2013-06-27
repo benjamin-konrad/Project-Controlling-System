@@ -36,8 +36,8 @@ public class FilterCollection {
 		parent = year + "";
 		fident = f;
 		fgruppe = FilterGruppe.ZEIT;
-		name = quartal + "";
-		id = name;
+		name = "Q" + quartal;
+		id = year + "-" + name;
 		return this;
 	}
 
@@ -47,7 +47,7 @@ public class FilterCollection {
 		fident = f;
 		fgruppe = FilterGruppe.ZEIT;
 		name = month + "";
-		id = name;
+		id = year + "-" + name;
 		return this;
 	}
 	
@@ -68,7 +68,7 @@ public class FilterCollection {
 		fident = fid;
 		fgruppe = FilterGruppe.ORGANISATION;
 		name = projekt + "";
-		id = parent + name;
+		id = parent + "_" + name;
 		return this;
 	}//name = projekt1 // id = bereich1projekt1 // parent = bereich
 
@@ -79,7 +79,7 @@ public class FilterCollection {
 		fident = fid;
 		fgruppe = FilterGruppe.ORGANISATION;
 		name = konto + "";
-		id = name;
+		id = parent + "_" + name;
 		return this;
 	}//name = konto1 // id = konto1 // parent = bereich1projekt1
 	

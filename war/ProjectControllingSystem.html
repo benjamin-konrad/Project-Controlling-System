@@ -108,17 +108,17 @@
 					<option value="LEISTUNG" selected="true">Leistung</option>
 					<option value="FAKTURIERBARELEISTUNG">Fakturierbare Leistung</option>
 					<option value="AUSLASTUNG">Auslastung</option>
-					<option value="LEISTUNGSUMSATZ">Leistungsumsatz</option>
+					<option value="LEITUNGSUMSATZ">Leistungsumsatz</option>
 					<option value="KOSTEN">Kosten</option>
 					<option value="ERTRAG">Ertrag</option>
-					<option value="KRANKHEITSQUTE">Krankheitsquote</option>
+					<option value="KRANKHEITSQUOTE">Krankheitsquote</option>
 				</select>
 			</div>
 			<div data-dojo-type="dijit/layout/ContentPane">
 				<label for="select_Chart" class="dialogLabel">Art des Diagramms: </label> <select name="selectedChart" class="dialogSelectbox" id="select_Chart" data-dojo-type="dijit/form/Select">
 					<option value="ClusteredBars">Balken</option>
 					<option value="StackedBars">Gestapelte Balken</option>
-					<option value="ClusteredColumns ">Spalten</option>
+					<option value="ClusteredColumns">Spalten</option>
 					<option value="StackedColumns">Gestapelte Spalten</option>
 					<option value="Pie">Kuchen</option>
 				</select>
@@ -137,7 +137,7 @@
 				<img class="ajaxLoaderContainerImg" src="img/ajax-loader.gif" />
 				<p>Filterinformationen werden geladen...</p>
 			</div>
-			<table class="treeTables">
+			<table class="treeTables" id="tableTree">
 				<tr>
 					<th class="treeCell"><div id="tree_filter_out"></div></th>
 					<th class="treeCell"><div id="tree_filter_in"></div></th>

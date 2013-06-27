@@ -12,7 +12,9 @@ function main() {
 			
 		}, 3000);
 		window.filterTypes = {
-			"ZEIT" : [ "year", "month", "quarter" ],
+			"ZEIT" : [ "JAHR", "MONAT", "QUARTAL" ],
+			"MITARBEITER" : ["ENTWICKLUNGSSTUFE", "MITARBEITER"],
+			"ORGANISATION": ["BEREICH", "PROJEKT", "KONTO"]
 		}
 		window.id = 0;
 		window.chartMinWidth = null;
@@ -24,7 +26,7 @@ function main() {
 			window.chartTheme = registry.byId("select_chartTheme").get("value");
 			for ( var key in portletIdToPortlets) {
 				if (portletIdToPortlets.hasOwnProperty(key)) {
-					portletIdToPortlets[key].refreshChart();
+					portletIdToPortlets[key].refreshChartTheme();
 				}
 			}
 
@@ -41,14 +43,14 @@ function main() {
 					parent : object.id
 				});
 				result = array.filter(result, function(item){
-					return window.filter === item.filter;
+					return window.filter === item.fgruppe;
 				});
 				return result;
 			}
 		});
 
 		var restObservableStore = new Observable(restStore);
-		var restTree = new RestTree("tree_filter_out", restObservableStore, "testfile2.json");
+		var restTree = new RestTree("tree_filter_out", restObservableStore, "http://pro-con-sys.appspot.com/api/filter/");
 		var dndStore = new Memory({
 			data : [ {
 				id : 'filter',
@@ -65,10 +67,18 @@ function main() {
 		var dndTree = new DndTree("tree_filter_in", dndObservableStore, restObservableStore);
 		var handler = new ChartCreationHandler(portletIdToPortlets, restTree, dndTree);
 
-		restTree.fetchData();
+		//restTree.fetchData();
 
 		on(registry.byId("tb_menubar_NewChart"), "click", function() {
 			handler.beforeOnClickChartFirstStepCreate();
+		});
+
+		on(registry.byId("dlg_createChart_FirstStep"), "hide", function(){
+			handler.onClose(true);
+		});
+		
+		on(registry.byId("dlg_createChart_SecondStep"), "hide", function(){
+			handler.onClose(false);
 		});
 	});
 
