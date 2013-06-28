@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.datanucleus.query.expression.CastExpression;
+
 import com.google.api.services.bigquery.model.GetQueryResultsResponse;
 import com.google.api.services.bigquery.model.TableCell;
 import com.google.api.services.bigquery.model.TableRow;
@@ -20,8 +22,11 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((String) field.getV());
-
+				try {
+					result.add(((String) field.getV()));
+				} catch (ClassCastException e) {
+					result.add("0");
+				}
 			}
 		}
 		String[] returnarray = new String[result.size()];
@@ -43,8 +48,11 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((String) field.getV());
-
+				try {
+					result.add(((String) field.getV()));
+				} catch (ClassCastException e) {
+					result.add("0");
+				}
 			}
 		}
 		String[] returnarray = new String[result.size()];
@@ -64,8 +72,11 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((String) field.getV());
-
+				try {
+					result.add(((String) field.getV()));
+				} catch (ClassCastException e) {
+					result.add("0");
+				}
 			}
 		}
 		String[] returnarray = new String[result.size()];
@@ -85,8 +96,11 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((String) field.getV());
-
+				try {
+					result.add(((String) field.getV()));
+				} catch (ClassCastException e) {
+					result.add("0");
+				}
 			}
 		}
 		String[] returnarray = new String[result.size()];
@@ -108,26 +122,14 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add(((String) field.getV()));
-
+				try {
+					result.add(((String) field.getV()));
+				} catch (ClassCastException e) {
+					result.add("0");
+				}
 			}
 		}
-		String[] returnarray = new String[result.size()];
-		int i = 0;
-		for (String res : result) {
-			int quart = 0;
-			if (Integer.parseInt(res) <= 3)
-				quart = 1;
-			else if (Integer.parseInt(res) <= 6)
-				quart = 2;
-			else if (Integer.parseInt(res) <= 9)
-				quart = 3;
-			else
-				quart = 4;
-			returnarray[i] = String.valueOf(quart);
-			i++;
-		}
-		return returnarray[0];
+		return result.get(0);
 
 	}
 
@@ -140,7 +142,11 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add(((String) field.getV()));
+				try {
+					result.add(((String) field.getV()));
+				} catch (ClassCastException e) {
+					result.add("0");
+				}
 
 			}
 		}
@@ -163,7 +169,11 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((((String) field.getV())));
+				try {
+					result.add(((String) field.getV()));
+				} catch (ClassCastException e) {
+					result.add("0");
+				}
 
 			}
 		}
@@ -185,7 +195,11 @@ public class Bigquerybase {
 		List<String> result = new ArrayList<String>();
 		for (TableRow row : rows) {
 			for (TableCell field : row.getF()) {
-				result.add((String) field.getV());
+				try {
+					result.add(((String) field.getV()));
+				} catch (ClassCastException e) {
+					result.add("0");
+				}
 
 			}
 		}
@@ -395,31 +409,33 @@ public class Bigquerybase {
 		if (filter.equals("entwicklungsstufe"))
 			filterquery = filterquery + filter + " = " + "" + filtervalue + "";
 		if (filter.equals("monat"))
-			filterquery = filterquery + filter + " = " + "" + filtervalue + "-"
-					+ filtervalue2;
+			filterquery = filterquery + filter + " = " + "\"" + filtervalue
+					+ "-" + filtervalue2 + "\"";
 		if (filter.equals("quartal")) {
+			filter = "monat";
 			if (filtervalue.equals("1"))
-				filterquery = filterquery + filter + " = 01-" + filtervalue2
-						+ " or " + filter + "=02-" + filtervalue2 + " or "
-						+ filter + "=03-" + filtervalue2;
+
+				filterquery = filterquery + filter + " = \"01-" + filtervalue2
+						+ "\" or " + filter + "=\"02-" + filtervalue2
+						+ "\" or " + filter + "=\"03-" + filtervalue2 + "\"";
 			if (filtervalue.equals("2"))
-				filterquery = filterquery + filter + " = 04-" + filtervalue2
-						+ " or " + filter + "=05-" + filtervalue2 + " or "
-						+ filter + "=06-" + filtervalue2;
+				filterquery = filterquery + filter + " = \"04-" + filtervalue2
+						+ "\" or " + filter + "=\"05-" + filtervalue2
+						+ "\" or " + filter + "=\"06-" + filtervalue2 + "\"";
 			if (filtervalue.equals("3"))
-				filterquery = filterquery + filter + " = 07-" + filtervalue2
-						+ " or " + filter + "=08-" + filtervalue2 + " or "
-						+ filter + "=09-" + filtervalue2;
+				filterquery = filterquery + filter + " = \"07-" + filtervalue2
+						+ "\" or " + filter + "=\"08-" + filtervalue2
+						+ "\" or " + filter + "=\"09-" + filtervalue2 + "\"";
 			if (filtervalue.equals("4"))
-				filterquery = filterquery + filter + " = 10-" + filtervalue2
-						+ " or " + filter + "=11-" + filtervalue2 + " or "
-						+ filter + "=12-" + filtervalue2;
+				filterquery = filterquery + filter + " = \"10-" + filtervalue2
+						+ "\" or " + filter + "=\"11-" + filtervalue2
+						+ "\" or " + filter + "=\"12-" + filtervalue2 + "\"";
 		}
 
 		// wildcard
 		if (filter.equals("jahr"))
-			filterquery = filterquery + filter + " contains " + filtervalue
-					+ "";
+			filterquery = filterquery + "monat" + " contains \"" + filtervalue
+					+ "\"";
 		if (kennzahl == Kennzahl.LEISTUNG) {
 			query = "select sum(stunden) from 480761361715:csv_data.data where konto != \"URLAUB\" and konto!=\"KRANK\"";
 			if (filterquery.length() > 1)
