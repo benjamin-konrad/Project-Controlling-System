@@ -34,20 +34,24 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 			for ( var i = 0; i < dataInformations.length; i++) {
 				var dataInformation = dataInformations[i];
 				var url = this.serviceUrl;
+				var id = "";
 				switch (filterType) {
 				case "ZEIT":
-					url += this._getUrlDataZeitFilter(dataInformation);
+					id = this._getUrlDataZeitFilter(dataInformation);
 					break;
 				case "ORGANISATION":
-					url += this._getUrlOrganisationsFilter(restStore, dataInformation)
+					id = this._getUrlOrganisationsFilter(restStore, dataInformation)
 					break;
 				case "MITARBEITER":
-					url += this._getUrlMitarbeiterFilter(dataInformation);
+					id = this._getUrlMitarbeiterFilter(dataInformation);
 					break;
 				}
-				url += kennzahl
+				url += id;
+				url += kennzahl;
+				var _this = this;
 				request(url).then(function(json) {
 					var obj = JSON.parse(json);
+					obj.id = _this.getId(obj);
 					newChartStore.put(obj);
 					callbacks--;
 					if (callbacks === 0) {
@@ -62,7 +66,7 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 		_getUrlDataZeitFilter : function(dataInformation) {
 			var url = "/zeitfilter/";
 			if (dataInformation.fident !== "JAHR")
-				url += dataInformation.id.substring(0,4) + "/";
+				url += dataInformation.id.substring(0, 4) + "/";
 			if (dataInformation.fident === "QUARTAL") {
 				url += "quartal/" + dataInformation.name.substring(1, 2) + "/";
 			} else if (dataInformation.fident === "MONAT") {
@@ -74,13 +78,13 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 
 		_getUrlOrganisationsFilter : function(restStore, dataInformation) {
 			var url = "/organisationsfilter/";
-			if(dataInformation.fident === "PROJEKT"){
+			if (dataInformation.fident === "PROJEKT") {
 				var firstIndex = dataInformation.id.indexOf("_");
 				var bereich = dataInformation.id.substring(0, firstIndex);
 				var projekt = dataInformation.id.substring(firstIndex + 1, dataInformation.id.length);
 				url += bereich + "/" + projekt + "/";
 			}
-			if (dataInformation.fident === "KONTO"){
+			if (dataInformation.fident === "KONTO") {
 				var firstIndex = dataInformation.id.indexOf("_");
 				var lastIndex = dataInformation.id.lastIndexOf("_");
 				var bereich = dataInformation.id.substring(0, firstIndex);
@@ -88,7 +92,7 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 				var konto = dataInformation.id.substring(lastIndex + 1, dataInformation.id.length);
 				url += bereich + "/" + projekt + "/" + konto + "/";
 			}
-			if (dataInformation.fident === "BEREICH"){
+			if (dataInformation.fident === "BEREICH") {
 				url += dataInformation.id + "/";
 			}
 			return url;
@@ -102,6 +106,36 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 				url += "mitarbeiter/";
 			return url + dataInformation.id + "/";
 		},
+		
+		getId : function(data) {
+			var name = "";
+			var filter = data.filter;
+			switch (filter.filterGruppe) {
+			case "ZEIT":
+				if (filter.jahr !== undefined)
+					name += filter.jahr;
+				if (filter.quartal !== undefined)
+					name += "-" + filter.quartal;
+				if (filter.monat !== undefined)
+					name += "-" + filter.monat;
+				break;
+			case "ORGANISATION":
+				if (filter.bereich !== undefined)
+					name += filter.bereich;
+				if (filter.projekt !== undefined)
+					name += "-" + filter.projekt;
+				if (filter.konto !== undefined)
+					name += "-" + filter.konto;
+				break;
+			case "MITARBEITER":
+				if (filter.stufe !== undefined)
+					name += filter.stufe;
+				if (filter.mitarbeiter !== undefined)
+					name += "-" + filter.mitarbeiter;
+				break;
+			}
+			return name;
+		}
 
 	});
 });
