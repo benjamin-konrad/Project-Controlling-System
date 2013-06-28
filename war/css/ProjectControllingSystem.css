@@ -153,6 +153,7 @@ span#tb_menubar_NewChart_label.dijitReset.dijitInline.dijitButtonText,span#tb_me
 
 .treeCell {
 	vertical-align: top;
+	text-align: left !important;
 }
 
 .dijitDialogPaneActionBar {
@@ -266,6 +267,10 @@ span#tb_menubar_NewChart_label.dijitReset.dijitInline.dijitButtonText,span#tb_me
 		150px #00DEFF;
 	display: inline;
 	margin-left: 20px;
+}
+
+.dijiCustomTree {
+	text-align: left !important;
 }
 
 /* loading circles */

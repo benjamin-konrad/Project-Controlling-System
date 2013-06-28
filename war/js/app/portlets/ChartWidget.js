@@ -37,7 +37,8 @@ define([ "dojo/_base/declare", "dojox/charting/Chart", "dojox/charting/axis2d/De
 				var pieData = [];
 				// this is called for each employee in the sales department
 				var results = _this.store.query({})
-				results.forEach(function(data) {
+				for(var i = 0; i < results.length; i++){
+					var data = results[i];
 					if (data.value != undefined) {
 						if (_this.typeOfChart !== "Pie")
 							_this.chart.addSeries(_this.getName(data), [ parseFloat(data.value) ]);
@@ -48,9 +49,9 @@ define([ "dojo/_base/declare", "dojox/charting/Chart", "dojox/charting/axis2d/De
 								tooltip : parseFloat(data.value)
 							});
 						}
-
+						
 					}
-				});
+				}
 
 				if (_this.typeOfChart === "Pie") {
 					_this.chart.addSeries(_this.typeOfFilter, pieData);

@@ -64,9 +64,9 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 			if (dataInformation.fident !== "JAHR")
 				url += dataInformation.id.substring(0,4) + "/";
 			if (dataInformation.fident === "QUARTAL") {
-				url += "quartal/" + dataInformation.name.substring(1, 1) + "/";
+				url += "quartal/" + dataInformation.name.substring(1, 2) + "/";
 			} else if (dataInformation.fident === "MONAT") {
-				url += "monat/" + dataInformation.id.substring(5, 5) + "/";
+				url += "monat/" + dataInformation.id.substring(5, 6) + "/";
 			} else
 				url += dataInformation.id + "/"
 			return url;
@@ -74,16 +74,24 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 
 		_getUrlOrganisationsFilter : function(restStore, dataInformation) {
 			var url = "/organisationsfilter/";
-			if (dataInformation.fident === "KONTO") {
-				var foundParent = dndStore.query({
-					id : dataInformation.oldParent
-				});
-				url += foundParent[0].parent + "/";
+			if(dataInformation.fident === "PROJEKT"){
+				var firstIndex = dataInformation.id.indexOf("_");
+				var bereich = dataInformation.id.substring(0, firstIndex);
+				var projekt = dataInformation.id.substring(firstIndex + 1, dataInformation.id.length);
+				url += bereich + "/" + projekt + "/";
 			}
-			if (dataInformation.fident !== "BEREICH")
-				url += dataInformation.oldParent + "/";
-
-			return url += dataInformation.id + "/";
+			if (dataInformation.fident === "KONTO"){
+				var firstIndex = dataInformation.id.indexOf("_");
+				var lastIndex = dataInformation.id.lastIndexOf("_");
+				var bereich = dataInformation.id.substring(0, firstIndex);
+				var projekt = dataInformation.id.substring(firstIndex + 1, lastIndex);
+				var konto = dataInformation.id.substring(lastIndex + 1, dataInformation.id.length);
+				url += bereich + "/" + projekt + "/" + konto + "/";
+			}
+			if (dataInformation.fident === "BEREICH"){
+				url += dataInformation.id + "/";
+			}
+			return url;
 		},
 
 		_getUrlMitarbeiterFilter : function(dataInformation) {
