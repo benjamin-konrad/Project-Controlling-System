@@ -22,7 +22,7 @@ public class posOrganisationValues extends posTimeValues {
 				possibleThingis.add(new FilterCollection().setProjektData(projekt, bereich,FilterIdentifier.PROJEKT));
 				String[] konten = FilterCollection.getDistinctKonten(bereich, projekt);
 				for(String konto: konten){
-					possibleThingis.add(new FilterCollection().setKontenData(konto, bereich + projekt,FilterIdentifier.KONTO));
+					possibleThingis.add(new FilterCollection().setKontenData(konto, bereich + "_" + projekt,FilterIdentifier.KONTO));
 				}
 			}
 		}
