@@ -48,7 +48,7 @@ define([ "dojo/_base/declare", "dojo", "dojo/store/Memory", "dojo/store/Observab
 				url += kennzahl
 				request(url).then(function(json) {
 					var obj = JSON.parse(json);
-					newChartStore.add(obj);
+					newChartStore.put(obj);
 					callbacks--;
 					if (callbacks === 0) {
 						callback(newChartStore);
