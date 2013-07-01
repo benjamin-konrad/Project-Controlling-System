@@ -65,7 +65,9 @@ public class Bigquerybase {
 	}
 
 	public static String fetchProjekt(Kennzahl kennzahl, String projekt) {
+		
 		String query = buildKennzahlquery(kennzahl, "projekt", projekt, "", "");
+		System.out.println("query: " + query);
 		GetQueryResultsResponse queryResult = bigquerytest.queryBig("Projekt",
 				query);
 		List<TableRow> rows = queryResult.getRows();
@@ -463,7 +465,7 @@ public class Bigquerybase {
 				filterquery2 = filterquery2 + " and "
 						+ filterquery.substring(5);
 
-			query = "select sum(t1.grenzkosten*t1.stunden)-sum(t2.grenzkosten*t2.stunden) from (select grenzkosten, stunden, maid from 480761361715:csv_data.data where "
+			query = "select sum(t1.grenzkosten*t1.stunden)-sum(t2.grenzkosten*t2.stunden) from (select grenzkosten, stunden, maid from 480761361715:csv_data.data "
 					+ filterquery
 					+ ") as t1 left join(select grenzkosten, stunden , maid from 480761361715:csv_data.data "
 					+ filterquery2 + ")as t2 on t1.maid = t2.maid;";
