@@ -409,8 +409,11 @@ public class Bigquerybase {
 		if (filter.equals("entwicklungsstufe"))
 			filterquery = filterquery + filter + " = " + "" + filtervalue + "";
 		if (filter.equals("monat"))
-			filterquery = filterquery + filter + " = " + "\"" + filtervalue
-					+ "-" + filtervalue2 + "\"";
+			{String val = filtervalue;
+			if(Integer.parseInt(filtervalue) < 10)
+				val = "0"+filtervalue;
+			filterquery = filterquery + filter + " = " + "\"" + val
+					+ "-" + filtervalue2 + "\"";}
 		if (filter.equals("quartal")) {
 			filter = "monat";
 			if (filtervalue.equals("1"))
